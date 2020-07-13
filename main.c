@@ -26,6 +26,8 @@ int
 main(int argc, char *argv[])
 {
 
+	printf("Creating game, please wait...\n");
+
 	create_anagrams();
 
 	play_game();
