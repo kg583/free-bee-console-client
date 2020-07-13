@@ -29,7 +29,7 @@ void
 create_anagrams(void)
 {
 	FILE *fp;
-	char *word = NULL, *w;
+	char *word = NULL;
 	char letters[8];
 	int pangram, words;
 	int one, two, three, four, five, six;
@@ -108,7 +108,7 @@ bad:
 	}
 
 	/* Not a good game, try again.  */
-	if (!pangram || words < 30 || words > 100) {
+	if (!pangram || words < 20) {
 		(void) fseek(fp, 0L, SEEK_SET);
 		goto again;
 	}
@@ -116,6 +116,7 @@ bad:
 	puts(letters);
 	putchar('\n');
 	puts(wordlist);
+	printf("Total words:  %d\n", words);
 
 	(void) fclose(fp);
 }
