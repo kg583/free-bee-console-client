@@ -35,7 +35,6 @@ create_anagrams(void)
 	int one, two, three, four, five, six;
 	size_t i, j, wordsize = 0;
 	ssize_t wordlen, special, yes;
-	char wordlist[1024 * 1024];
 
 	if ((fp = fopen("sowpods.txt", "r")) == NULL)
 		err(1, "fopen");
@@ -54,6 +53,7 @@ bad:
 
 	/* Create anagrams.  */
 	(void) memset(wordlist, 0, sizeof(wordlist));
+	points = 0;
 	pangram = 0;
 	words = 0;
 	while ((wordlen = getline(&word, &wordsize, fp)) != -1) {
@@ -95,8 +95,15 @@ bad:
 		if (special && yes == wordlen - 1) {
 			++words;
 			(void) strlcat(wordlist, word, sizeof(wordlist));
-			if (special && one && two && three && four && five && six)
+			if (special && one && two && three && four && five && six) {
+				printf("pangram: %s\n", word);
 				pangram = 1;
+				points += strlen(word) + 7;
+			} else {
+				if ((i = strlen(word)) == 4)
+					i = 1;
+				points += i;
+			}
 		}
 	}
 

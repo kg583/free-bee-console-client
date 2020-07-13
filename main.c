@@ -14,13 +14,20 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+#include <stdio.h>
+
 #include "freebee.h"
+
+char wordlist[1024 * 1024];
+size_t points;
 
 int
 main(int argc, char *argv[])
 {
 
 	create_anagrams();
+
+	printf("Total points: %zu\n", points);
 
 	return 0;
 }
