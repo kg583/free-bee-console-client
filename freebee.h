@@ -23,5 +23,19 @@ extern size_t points;
 extern size_t total;
 extern size_t words;
 
+/* Score ranks  */
+extern size_t egg;
+extern size_t larva;
+extern size_t hatchling;
+extern size_t drone;
+extern size_t feeder;
+extern size_t builder;
+extern size_t guard;
+extern size_t forager;
+extern size_t queen;
+
+extern const char *rank(void);
+
 extern void create_anagrams(void);
 extern void play_game(void);
+extern void set_rank(void);

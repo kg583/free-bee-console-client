@@ -18,21 +18,44 @@
 
 #include "freebee.h"
 
-char foundlist[2000][20], wordlist[2000][20];
-char letters[8];
-size_t found, points, total, words;
-
-size_t egg, larva, hatchling, drone, feeder, builder, guard, forager, queen;
-
-int
-main(int argc, char *argv[])
+const char *
+rank(void)
 {
 
-	printf("Creating game, please wait...\n");
+	if (points >= queen)
+		return "Queen Bee!";
+	else if (points >= forager)
+		return "Forager";
+	else if (points >= guard)
+		return "Guard";
+	else if (points >= builder)
+		return "Builder";
+	else if (points >= feeder)
+		return "Feeder";
+	else if (points >= drone)
+		return "Drone";
+	else if (points >= hatchling)
+		return "Hatchling";
+	else if (points >= larva)
+		return "Larva";
 
-	create_anagrams();
-	set_rank();
-	play_game();
+	return "Egg";
+}
 
-	return 0;
+void
+set_rank(void)
+{
+
+	larva = total * 0.02;
+	hatchling = total * 0.05;
+	drone = total * 0.08;
+	feeder = total * 0.15;
+	builder = total * 0.25;
+	guard = total * 0.40;
+	forager = total * 0.50;
+	queen = total * 0.70;
+
+	printf("%zu\n%zu\n%zu\n%zu\n%zu\n%zu\n%zu\n%zu\n%zu\n", egg, larva, hatchling, drone, feeder, builder, guard, forager, queen);
+
+	(void) getchar();
 }

@@ -133,10 +133,10 @@ add_points(const char *guess)
 				case 6:
 					special = 1;
 				}
-				break;
 			}
-			++i;
+			break;
 		}
+		++i;
 	}
 
 	if (special && one && two && three && four && five && six) {
@@ -196,7 +196,7 @@ play_game(void)
 
 	while (1) {
 		system("clear");
-		printf("Free Bee %s | Score: %zu\n\n", VERSION, points);
+		printf("Free Bee %s | Score: %zu | Rank: %s\n\n", VERSION, points, rank());
 		printf("          %c     %c\n\n", letters[a], letters[b]);
 		printf("       %c     %c     %c\n\n", letters[c], letters[6], letters[d]);
 		printf("          %c     %c\n\n", letters[e], letters[f]);
