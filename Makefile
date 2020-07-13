@@ -1,7 +1,10 @@
-# freebee Makefile
+# free bee Makefile
+
+CC ?=		cc
+CFLAGS ?=	-O2 -pipe
 
 PROG =	freebee
-OBJS =	anagram.o main.o
+OBJS =	anagram.o game.o main.o
 
 all: ${OBJS}
 	${CC} ${LDFLAGS} -o ${PROG} ${OBJS}

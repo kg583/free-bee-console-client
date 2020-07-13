@@ -18,8 +18,9 @@
 
 #include "freebee.h"
 
-char wordlist[1024 * 1024];
-size_t points;
+char foundlist[2000][20], wordlist[2000][20];
+char letters[8];
+size_t found, points, total, words;
 
 int
 main(int argc, char *argv[])
@@ -27,7 +28,7 @@ main(int argc, char *argv[])
 
 	create_anagrams();
 
-	printf("Total points: %zu\n", points);
+	play_game();
 
 	return 0;
 }

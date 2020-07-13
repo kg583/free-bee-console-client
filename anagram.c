@@ -30,8 +30,7 @@ create_anagrams(void)
 {
 	FILE *fp;
 	char *word = NULL;
-	char letters[8];
-	int pangram, words;
+	int pangram;
 	int one, two, three, four, five, six;
 	size_t i, j, wordsize = 0;
 	ssize_t wordlen, special, yes;
@@ -53,7 +52,7 @@ bad:
 
 	/* Create anagrams.  */
 	(void) memset(wordlist, 0, sizeof(wordlist));
-	points = 0;
+	total = 0;
 	pangram = 0;
 	words = 0;
 	while ((wordlen = getline(&word, &wordsize, fp)) != -1) {
@@ -93,16 +92,15 @@ bad:
 			++j;
 		}
 		if (special && yes == wordlen - 1) {
+			(void) strlcat(wordlist[words], word, sizeof(wordlist[words]));
 			++words;
-			(void) strlcat(wordlist, word, sizeof(wordlist));
 			if (special && one && two && three && four && five && six) {
-				printf("pangram: %s\n", word);
 				pangram = 1;
-				points += strlen(word) + 7;
+				total += strlen(word) + 7;
 			} else {
 				if ((i = strlen(word)) == 4)
 					i = 1;
-				points += i;
+				total += i;
 			}
 		}
 	}
@@ -112,11 +110,6 @@ bad:
 		(void) fseek(fp, 0L, SEEK_SET);
 		goto again;
 	}
-
-	puts(letters);
-	putchar('\n');
-	puts(wordlist);
-	printf("Total words:  %d\n", words);
 
 	(void) fclose(fp);
 }

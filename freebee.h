@@ -14,7 +14,14 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-extern char wordlist[1024 * 1024];
+extern char foundlist[2000][20];
+extern char letters[8];
+extern char wordlist[2000][20];
+
+extern size_t found;
 extern size_t points;
+extern size_t total;
+extern size_t words;
 
 extern void create_anagrams(void);
+extern void play_game(void);
