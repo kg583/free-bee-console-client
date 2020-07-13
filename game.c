@@ -62,6 +62,7 @@ show_found(void)
 		printf("%s", foundlist[i]);
 
 	printf("\nWords found: %zu\n", found);
+
 	(void) getchar();
 }
 
@@ -98,10 +99,10 @@ check(char *guess)
 static void
 add_points(const char *guess)
 {
-	int one, two, three, four, five, six, special;
+	int one, two, three, four, five, six;
 	int i = 0, j = 0;
 
-	one = two = three = four = five = six = special = 0;
+	one = two = three = four = five = six = 0;
 
 	if ((i = strlen(guess) - 1) < 7) {
 		if (i == 4)
@@ -132,9 +133,6 @@ add_points(const char *guess)
 					break;
 				case 5:
 					six = 1;
-					break;
-				case 6:
-					special = 1;
 				}
 				break;
 			}
@@ -142,7 +140,7 @@ add_points(const char *guess)
 		++i;
 	}
 
-	if (special && one && two && three && four && five && six) {
+	if (one && two && three && four && five && six) {
 		printf("Pangram!\n");
 		points += (strlen(guess) - 1) + 7;
 		(void) getchar();
