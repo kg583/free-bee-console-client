@@ -76,7 +76,7 @@ check(const char *guess)
 	}
 
 	if (center == 0) {
-		printf("Must use special letter\n");
+		printf("Must use center letter\n");
 		(void) getchar();
 		return 0;
 	}
