@@ -66,14 +66,16 @@ show_found(void)
 }
 
 static int
-check(const char *guess)
+check(char *guess)
 {
-	const char *g;
+	char *g;
 	int center = 0;
 
 	for (g = guess; *g != '\n'; g++) {
 		if (!isalpha(*g))
 			return 0;
+		if (isupper(*g))
+			*g = tolower(*g);
 		if (*g == letters[6])
 			center = 1;
 	}
