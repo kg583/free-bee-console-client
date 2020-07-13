@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <term.h>
 
 #include "freebee.h"
 #include "version.h"
@@ -57,7 +58,7 @@ show_found(void)
 {
 	size_t i;
 
-	system("clear");
+	putp(clear_screen);
 	for (i = 0; i < found; i++)
 		printf("%s", foundlist[i]);
 
@@ -197,7 +198,7 @@ play_game(void)
 	int afirst = 0, qfirst = 0;
 
 	while (1) {
-		system("clear");
+		putp(clear_screen);
 		printf("Free Bee %s | Score: %zu | Rank: %s\n\n", VERSION, points, rank());
 		printf("          %c     %c\n\n", letters[a], letters[b]);
 		printf("       %c     %c     %c\n\n", letters[c], letters[6], letters[d]);

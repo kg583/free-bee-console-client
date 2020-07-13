@@ -14,55 +14,30 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+#include <sys/stat.h>
+
 #include <err.h>
+#include <errno.h>
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <term.h>
 
 #include "freebee.h"
-#include "version.h"
 
-char *term;
-char foundlist[2000][20], wordlist[2000][20];
-char letters[8];
-size_t found, points, total, words;
-
-size_t egg, larva, hatchling, drone, feeder, builder, guard, forager, queen;
-
-static int
-daily(void)
+void
+create_dir(void)
 {
-	int ch;
+	char buf[PATH_MAX];
+	mode_t mode;
 
-	putp(clear_screen);
-	printf("Welcome to Free Bee %s\n", VERSION);
-	printf("Are you playing a (d)aily game or a (r)andom game?\n");
+	mode = 0777 & ~umask(0);
+	if (getenv("HOME") == NULL)
+		snprintf(buf, sizeof(buf), "./");
+	else
+		snprintf(buf, sizeof(buf), "%s/.freebee", getenv("HOME"));
 
-	if ((ch = getchar()) == 'd' || ch == 'D')
-		return 1;
-
-	return 0;
-}
-
-int
-main(int argc, char *argv[])
-{
-	int status;
-
-	if ((term = getenv("TERM")) == NULL)
-		err(1, "getenv");
-	setupterm(term, 1, &status);
-	if (status == -1)
-		errx(1, "setupterm");
-
-	if (daily() == 1)
-		create_dir();
-
-	printf("Creating game, please wait...\n");
-
-	create_anagrams();
-	set_rank();
-	play_game();
-
-	return 0;
+	if (mkdir(buf, mode) == -1) {
+		if (errno != EEXIST)
+			err(1, "mkdir");
+	}
 }

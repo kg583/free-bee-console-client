@@ -106,7 +106,7 @@ bad:
 	}
 
 	/* Not a good game, try again.  */
-	if (!pangram || words < 20) {
+	if (!pangram || words < 20 || words > 2000) {
 		(void) fseek(fp, 0L, SEEK_SET);
 		goto again;
 	}

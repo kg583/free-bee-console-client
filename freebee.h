@@ -14,6 +14,8 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+extern char *term;
+
 extern char foundlist[2000][20];
 extern char letters[8];
 extern char wordlist[2000][20];
@@ -37,5 +39,6 @@ extern size_t queen;
 extern const char *rank(void);
 
 extern void create_anagrams(void);
+extern void create_dir(void);
 extern void play_game(void);
 extern void set_rank(void);
