@@ -61,7 +61,7 @@ show_found(void)
 	for (i = 0; i < found; i++)
 		printf("%s", foundlist[i]);
 
-	printf("\nPress Enter to return\n");
+	printf("\nWords found: %zu\n", found);
 	(void) getchar();
 }
 
