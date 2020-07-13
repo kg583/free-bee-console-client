@@ -8,7 +8,7 @@ a word that uses all seven letters yields bonus points! Every game has at
 least one such word, and many games have multiple. As you earn points, you
 rise through the ranks of the hive, ultimately becoming the Queen Bee.
 
-The only notable difference between Free Bee and the origina game is the use
+The only notable difference between Free Bee and the original game is the use
  of the SOWPODS dictionary instead of the NYT dictionary. Patches welcome.
 
 This is a very quickly made prototype for the terminal. Patches welcome.
