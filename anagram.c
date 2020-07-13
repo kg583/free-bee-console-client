@@ -39,7 +39,7 @@ create_anagrams(void)
 		err(1, "fopen");
 
 again:
-	/* Start by generated 7 random distinct letters.  */
+	/* Start by generating 7 random distinct letters.  */
 	(void) memset(letters, 0, sizeof(letters));
 	for (i = 0; i < sizeof(letters) - 1; i++) {
 bad:

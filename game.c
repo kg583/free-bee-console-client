@@ -108,6 +108,7 @@ add_points(const char *guess)
 		return;
 	}
 
+	i = 0;
 	while (guess[i] != '\n') {
 		for (j = 0; j < 7; j++) {
 			if (guess[i] == letters[j]) {
@@ -133,8 +134,8 @@ add_points(const char *guess)
 				case 6:
 					special = 1;
 				}
+				break;
 			}
-			break;
 		}
 		++i;
 	}
