@@ -22,6 +22,9 @@
 #include "freebee.h"
 #include "version.h"
 
+/*
+ * Fisher-Yates shuffle
+ */
 static void
 shuffle(int *a, int *b, int *c, int *d, int *e, int *f)
 {
@@ -136,10 +139,13 @@ add_points(const char *guess)
 		}
 	}
 
-	if (special && one && two && three && four && five && six)
+	if (special && one && two && three && four && five && six) {
+		printf("Pangram!\n");
 		points += (strlen(guess) - 1) + 7;
-	else
+		(void) getchar();
+	} else {
 		points += strlen(guess) - 1;
+	}
 }
 
 static void
@@ -179,6 +185,9 @@ find_word(const char *guess)
 	(void) getchar();
 }
 
+/*
+ * Main loop
+ */
 void
 play_game(void)
 {
