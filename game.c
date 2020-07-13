@@ -129,13 +129,13 @@ add_points(const char *guess)
 					break;
 				case 6:
 					special = 1;
-					break;
 				}
 				break;
 			}
 			++i;
 		}
 	}
+
 	if (special && one && two && three && four && five && six)
 		points += (strlen(guess) - 1) + 7;
 	else
