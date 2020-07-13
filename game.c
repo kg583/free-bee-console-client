@@ -194,6 +194,7 @@ play_game(void)
 {
 	char guess[32];
 	int a = 0, b = 1, c = 2, d = 3, e = 4, f = 5;
+	int afirst = 0, qfirst = 0;
 
 	while (1) {
 		system("clear");
@@ -202,10 +203,19 @@ play_game(void)
 		printf("       %c     %c     %c\n\n", letters[c], letters[6], letters[d]);
 		printf("          %c     %c\n\n", letters[e], letters[f]);
 
-		if (found == words) {
+		if (qfirst == 0 && !strcmp(rank(), "Queen Bee!")) {
+			printf("You have earned the rank of Queen Bee and won the game!\n");
+			printf("You may continue playing. Can you find all the words?\n");
+			(void) getchar();
+
+			qfirst = 1;
+		}
+
+		if (afirst == 0 && found == words) {
 			printf("You found all the words!\n");
 			(void) getchar();
-			break;
+
+			afirst = 1;
 		}
 
 		printf("? to shuffle\n");

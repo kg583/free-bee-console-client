@@ -54,8 +54,4 @@ set_rank(void)
 	guard = total * 0.40;
 	forager = total * 0.50;
 	queen = total * 0.70;
-
-	printf("%zu\n%zu\n%zu\n%zu\n%zu\n%zu\n%zu\n%zu\n%zu\n", egg, larva, hatchling, drone, feeder, builder, guard, forager, queen);
-
-	(void) getchar();
 }
