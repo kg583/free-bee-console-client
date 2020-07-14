@@ -14,6 +14,10 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+#ifndef DICTIONARY
+#define DICTIONARY "/usr/local/share/freebee/sowpods.txt"
+#endif
+
 extern FILE *daily_save;
 
 extern char *term;

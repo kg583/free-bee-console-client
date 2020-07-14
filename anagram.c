@@ -74,7 +74,7 @@ create_anagrams(void)
 	size_t cont = 0, i, j, wordsize = 0;
 	ssize_t wordlen, special, yes;
 
-	if ((fp = fopen("sowpods.txt", "r")) == NULL)
+	if ((fp = fopen(DICTIONARY, "r")) == NULL)
 		err(1, "fopen");
 
 	/*
