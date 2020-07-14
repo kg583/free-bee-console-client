@@ -1,13 +1,14 @@
-# free bee Makefile
+# freebee Makefile
 
 CC ?=		cc
 CFLAGS ?=	-O2 -pipe
 CFLAGS +=	-I/usr/local/include
+CFLAGS +=	-DHAVE_ARC4RANDOM_UNIFORM -DHAVE_STRLCAT
 
 PREFIX ?=	/usr/local
 
 PROG =	freebee
-OBJS =	anagram.o dir.o game.o main.o net.o rank.o
+OBJS =	anagram.o arc4random_uniform.o dir.o game.o main.o net.o rank.o strlcat.o
 
 all: ${OBJS}
 	${CC} ${LDFLAGS} -o ${PROG} ${OBJS} -lncurses -L/usr/local/lib -lcurl

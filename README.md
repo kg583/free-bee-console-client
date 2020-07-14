@@ -30,9 +30,10 @@ system.
 Compiling
 ---------
 Just run `make`. Development of Free Bee is done on OpenBSD and I'm using
-some OpenBSD extensions, so Linux people might need to add `libbsd` as needed.
-
-A GNU autotools `configure` script is coming to make things even easier.
+some OpenBSD extensions. Please edit the
+`CFLAGS += -DHAVE_ARC4RANDOM_UNIFORM -DHAVE_STRLCAT` line in the `Makefile`
+to reflect whether or not your system has those extensions or needs the
+portable versions included in this repository.
 
 License
 -------
