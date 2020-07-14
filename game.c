@@ -305,7 +305,7 @@ play_game(void)
 
 	while (1) {
 		putp(clear_screen);
-		printf("Free Bee %s | Score: %zu | Rank: %s\n\n", VERSION, points, rank());
+		printf("Free Bee %s | Score: %zu | Rank: %s | https://freebee.fun/\n\n", VERSION, points, rank());
 		printf("          %c     %c\n\n", letters[a], letters[b]);
 		printf("       %c     %c     %c\n\n", letters[c], letters[6], letters[d]);
 		printf("          %c     %c\n\n", letters[e], letters[f]);

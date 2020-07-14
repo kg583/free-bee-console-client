@@ -41,7 +41,7 @@ play_daily(void)
 	int ch;
 
 	putp(clear_screen);
-	printf("Welcome to Free Bee %s\n", VERSION);
+	printf("Welcome to Free Bee %s | https://freebee.fun/\n", VERSION);
 	printf("Are you playing a (d)aily game or a (r)andom game? ");
 
 	ch = getchar();
