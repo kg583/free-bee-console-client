@@ -25,7 +25,28 @@
 .Nm
 .Sh DESCRIPTION
 .Nm
-is a game where the player creates angrams of the seven provided letters.
+is a game where the player creates anagrams.
+The goal of
+.Nm
+is to make as many words as possible with the seven provided letters.
+The player does not have to use every letter and can use letters more than
+once.
+The only requirements are that the center letter must be used at least once
+in every word and words must be at least four letters long.
+.Pp
+Four letter words are worth one point.
+Words longer than four letters are worth one point per letter.
+Pangrams, words that use all seven letters, are worth one point per letter
+plus an additional seven points.
+All games have at least one pangram and many games have multiple.
+.Pp
+The game is won when enough points are earned to become the Queen Bee.
+.Pp
+There are two types of games, daily and random.
+Daily games are updated once per day and are downloaded from the Free Bee
+website at
+.Lk https://freebee.fun .
+Random games are generated on-the-fly whenever desired.
 .Sh EXIT STATUS
 The
 .Nm
