@@ -30,6 +30,7 @@ char foundlist[2000][17], wordlist[2000][17];
 char homedir[PATH_MAX];
 char letters[8];
 
+int cols, rows;
 int daily;
 
 size_t found, points, total, words;
@@ -56,6 +57,7 @@ play_daily(void)
 int
 main(int argc, char *argv[])
 {
+	const char *e;
 	int status;
 
 	(void) argc, (void) argv;
@@ -65,6 +67,9 @@ main(int argc, char *argv[])
 	setupterm(term, 1, &status);
 	if (status == -1)
 		errx(1, "setupterm");
+
+	cols = 80;
+	rows = 24;
 
 	daily = play_daily();
 

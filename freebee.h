@@ -27,7 +27,9 @@ extern char homedir[PATH_MAX];
 extern char letters[8];
 extern char wordlist[2000][17];
 
+extern int cols;
 extern int daily;
+extern int rows;
 
 extern size_t found;
 extern size_t points;

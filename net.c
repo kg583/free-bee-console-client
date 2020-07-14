@@ -69,7 +69,7 @@ yesterday(void)
 	CURL *curl;
 	FILE *fp;
 	char buf[PATH_MAX];
-	int ch;
+	int ch, printed = 0;
 
 	curl = curl_easy_init();
 	if(curl) {
@@ -94,8 +94,17 @@ yesterday(void)
 		(void) fseek(fp, 0L, SEEK_SET);
 
 		putp(clear_screen);
-		while ((ch = fgetc(fp)) != EOF)
+		while ((ch = fgetc(fp)) != EOF) {
 			fputc(ch, stdout);
+			if (ch == '\n') {
+				if (++printed > rows - 4) {
+					while (getchar() != '\n')
+						;
+					putp(clear_screen);
+					printed = 0;
+				}
+			}
+		}
 
 		(void) fclose(fp);
 		(void) unlink(buf);

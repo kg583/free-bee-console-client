@@ -59,6 +59,7 @@ shuffle(int *a, int *b, int *c, int *d, int *e, int *f)
 static void
 show_answers(void)
 {
+	int printed = 7; /* Number of \n in heading */
 	size_t i, j, queens;
 
 	putp(clear_screen);
@@ -72,10 +73,35 @@ show_answers(void)
 		for (j = 0; wordlist[i][j] != '\n'; j++)
 			putchar(wordlist[i][j]);
 		putchar('\n');
+		if (++printed > rows - 4) {
+			while (getchar() != '\n')
+				;
+			putp(clear_screen);
+			printed = 0;
+		}
 	}
 
-	printf("\nTotal words:  %zu\n", words);
+	printf("\n");
+	if (++printed > rows - 4) {
+		while (getchar() != '\n')
+			;
+		putp(clear_screen);
+		printed = 0;
+	}
+	printf("Total words:  %zu\n", words);
+	if (++printed > rows - 4) {
+		while (getchar() != '\n')
+			;
+		putp(clear_screen);
+		printed = 0;
+	}
 	printf("Total points: %zu\n", total);
+	if (++printed > rows - 4) {
+		while (getchar() != '\n')
+			;
+		putp(clear_screen);
+		printed = 0;
+	}
 	queens = total * 0.70;
 	printf("Points for Queen Bee: %zu\n", queens);
 
@@ -86,13 +112,28 @@ show_answers(void)
 static void
 show_found(void)
 {
+	int printed = 0;
 	size_t i;
 
 	putp(clear_screen);
-	for (i = 0; i < found; i++)
+	for (i = 0; i < found; i++) {
 		printf("%s", foundlist[i]);
+		if (++printed > rows - 4) {
+			while (getchar() != '\n')
+				;
+			putp(clear_screen);
+			printed = 0;
+		}
+	}
 
-	printf("\nWords found: %zu\n", found);
+	printf("\n");
+	if (++printed > rows - 4) {
+		while (getchar() != '\n')
+			;
+		putp(clear_screen);
+		printed = 0;
+	}
+	printf("Words found: %zu\n", found);
 
 	while (getchar() != '\n')
 		;
