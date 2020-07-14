@@ -55,6 +55,8 @@ extern void today(void);
 extern void yesterday(void);
 
 #ifndef HAVE_ARC4RANDOM_UNIFORM
+#include <stdint.h>
+
 extern uint32_t arc4random_uniform(uint32_t);
 #endif /* !HAVE_ARC4RANDOM_UNIFORM */
 
