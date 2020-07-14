@@ -22,14 +22,9 @@
 
 #include "freebee.h"
 
-/*
- * 0 = continue
- * anything else don't continue
- */
 static void
-random_letters(size_t cont)
+random_letters(void)
 {
-	FILE *fp;
 	int i, j;
 
 	for (i = 0; i < sizeof(letters) - 1; i++) {
@@ -50,7 +45,7 @@ daily_letters(void)
 {
 	int ch;
 
-	printf("Would you like to see yesterday's answers? ");
+	printf("Would you like to see yesterday's answers? (y/n) ");
 	ch = getchar();
 	while (getchar() != '\n')
 		;
@@ -71,7 +66,7 @@ create_anagrams(void)
 	char *word = NULL;
 	int notfirst = 0, pangram;
 	int one, two, three, four, five, six;
-	size_t cont = 0, i, j, wordsize = 0;
+	size_t i, j, wordsize = 0;
 	ssize_t wordlen, special, yes;
 
 	if ((fp = fopen(DICTIONARY, "r")) == NULL)
@@ -85,7 +80,7 @@ create_anagrams(void)
 		daily_letters();
 	} else {
 again:
-		random_letters(cont++);
+		random_letters();
 	}
 
 	if (!notfirst) {

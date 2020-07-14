@@ -57,6 +57,33 @@ shuffle(int *a, int *b, int *c, int *d, int *e, int *f)
 }
 
 static void
+show_answers(void)
+{
+	size_t i, j, queens;
+
+	putp(clear_screen);
+
+	putchar('\n');
+	printf("          %c     %c\n\n", letters[0], letters[1]);
+	printf("       %c     %c     %c\n\n", letters[2], letters[6], letters[3]);
+	printf("          %c     %c\n\n", letters[4], letters[5]);
+
+	for (i = 0; i < words; i++) {
+		for (j = 0; wordlist[i][j] != '\n'; j++)
+			putchar(wordlist[i][j]);
+		putchar('\n');
+	}
+
+	printf("\nTotal words:  %zu\n", words);
+	printf("Total points: %zu\n", total);
+	queens = total * 0.70;
+	printf("Points for Queen Bee: %zu\n", queens);
+
+	while (getchar() != '\n')
+		;
+}
+
+static void
 show_found(void)
 {
 	size_t i;
@@ -228,7 +255,7 @@ daily_continue(void)
 		return;
 	}
 
-	printf("You appear to have a saved game. Continue? ");
+	printf("You appear to have a saved game. Continue? (y/n) ");
 	ch = getchar();
 	while (getchar() != '\n')
 		;
@@ -285,7 +312,7 @@ play_game(void)
 
 		if (qfirst == 0 && !strcmp(rank(), "Queen Bee!")) {
 			printf("You have earned the rank of Queen Bee and won the game!\n");
-			printf("You may continue playing. Can you find all the words?\n");
+			printf("You may continue playing. Can you find all the words? (y/n)\n");
 			while (getchar() != '\n')
 				;
 
@@ -302,6 +329,8 @@ play_game(void)
 
 		printf("? to shuffle\n");
 		printf("! to display found words\n");
+		if (daily == 0)
+			printf("& to display answers\n");
 		printf("; to quit\n\n");
 
 		printf("Enter a word: ");
@@ -317,6 +346,11 @@ play_game(void)
 
 		if (guess[0] == '!') {
 			show_found();
+			continue;
+		}
+
+		if (daily == 0 && guess[0] == '&') {
+			show_answers();
 			continue;
 		}
 
