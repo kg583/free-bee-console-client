@@ -33,7 +33,7 @@ today(void)
 
 	curl = curl_easy_init();
 	if(curl) {
-		curl_easy_setopt(curl, CURLOPT_URL, "http://freebee.fun/daily/today.txt");
+		curl_easy_setopt(curl, CURLOPT_URL, "https://freebee.fun/daily/today.txt");
 
 		/* use a GET to fetch this */
 		curl_easy_setopt(curl, CURLOPT_HTTPGET, 1L);
@@ -73,7 +73,7 @@ yesterday(void)
 
 	curl = curl_easy_init();
 	if(curl) {
-		curl_easy_setopt(curl, CURLOPT_URL, "http://freebee.fun/daily/yesterday.txt");
+		curl_easy_setopt(curl, CURLOPT_URL, "https://freebee.fun/daily/yesterday.txt");
 
 		/* use a GET to fetch this */
 		curl_easy_setopt(curl, CURLOPT_HTTPGET, 1L);
