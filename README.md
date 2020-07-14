@@ -6,8 +6,9 @@ In this game, your goal is to find as many words as you can with the seven
 letters you are given. You don't have to use any letter except the middle
 letter and letters can be used more than once in a word. Finding a word
 that uses all seven letters yields bonus points! Every game has at least
-one such word, and many games have multiple. As you earn points, you rise
-through the ranks of the hive, ultimately becoming the Queen Bee.
+one such word, and many games have multiple.
+
+Earning enough points to reach the rank of Queen Bee wins the game!
 
 You can play the daily challenge like the original game or try your hand at a
 nearly infinite number of computer-generated random challenges. Unlike the
