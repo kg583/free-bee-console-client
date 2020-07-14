@@ -5,6 +5,9 @@ CFLAGS ?=	-O2 -pipe
 CFLAGS +=	-I/usr/local/include
 CFLAGS +=	-DHAVE_ARC4RANDOM_UNIFORM -DHAVE_STRLCAT
 
+# Uncomment if you don't want to install
+#CFLAGS +=	-DDICTIONARY="\"sowpods.txt\""
+
 PREFIX ?=	/usr/local
 
 PROG =	freebee

@@ -53,3 +53,11 @@ extern void play_game(void);
 extern void set_rank(void);
 extern void today(void);
 extern void yesterday(void);
+
+#ifndef HAVE_ARC4RANDOM_UNIFORM
+extern uint32_t arc4random_uniform(uint32_t);
+#endif /* !HAVE_ARC4RANDOM_UNIFORM */
+
+#ifndef HAVE_STRLCAT
+extern size_t strlcat(char *, const char *, size_t);
+#endif /* !HAVE_STRLCAT */
