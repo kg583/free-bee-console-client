@@ -15,11 +15,50 @@
  */
 
 #include <err.h>
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "freebee.h"
+
+/*
+ * 0 = continue
+ * anything else don't continue
+ */
+static void
+random_letters(size_t cont)
+{
+	FILE *fp;
+	int i, j;
+
+	for (i = 0; i < sizeof(letters) - 1; i++) {
+bad:
+		letters[i] = (unsigned char) arc4random_uniform(26) + 'a';
+		for (j = 0; j < i; j++) {
+			if (letters[j] == letters[i])
+				goto bad;
+		}
+	}
+}
+
+/*
+ * Connect to the server and get the daily.
+ */
+static void
+daily_letters(void)
+{
+	int ch;
+
+	printf("Would you like to see yesterday's answers? ");
+	ch = getchar();
+	while (getchar() != '\n')
+		;
+	if (ch == 'y' || ch == 'Y')
+		yesterday();
+
+	today();
+}
 
 /*
  * The seventh letter is the center letter.
@@ -30,24 +69,28 @@ create_anagrams(void)
 {
 	FILE *fp;
 	char *word = NULL;
-	int pangram;
+	int notfirst = 0, pangram;
 	int one, two, three, four, five, six;
-	size_t i, j, wordsize = 0;
+	size_t cont = 0, i, j, wordsize = 0;
 	ssize_t wordlen, special, yes;
 
 	if ((fp = fopen("sowpods.txt", "r")) == NULL)
 		err(1, "fopen");
 
-again:
-	/* Start by generating 7 random distinct letters.  */
+	/*
+	 * Start by generating 7 distinct letters.
+	 */
 	(void) memset(letters, 0, sizeof(letters));
-	for (i = 0; i < sizeof(letters) - 1; i++) {
-bad:
-		letters[i] = (unsigned char) arc4random_uniform(26) + 'a';
-		for (j = 0; j < i; j++) {
-			if (letters[j] == letters[i])
-				goto bad;
-		}
+	if (daily == 1) {
+		daily_letters();
+	} else {
+again:
+		random_letters(cont++);
+	}
+
+	if (!notfirst) {
+		++notfirst;
+		printf("Creating game, please wait...\n");
 	}
 
 	/* Create anagrams.  */
@@ -107,9 +150,15 @@ bad:
 
 	/* Not a good game, try again.  */
 	if (!pangram || words < 20 || words > 2000) {
+		if (daily == 1) {
+			printf("Could not create daily game. Creating a random game\n");
+			daily = 0;
+		}
 		(void) fseek(fp, 0L, SEEK_SET);
 		goto again;
 	}
+
+	free(word);
 
 	(void) fclose(fp);
 }

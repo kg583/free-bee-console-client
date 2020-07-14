@@ -14,11 +14,16 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+extern FILE *daily_save;
+
 extern char *term;
 
-extern char foundlist[2000][20];
+extern char foundlist[2000][17];
+extern char homedir[PATH_MAX];
 extern char letters[8];
-extern char wordlist[2000][20];
+extern char wordlist[2000][17];
+
+extern int daily;
 
 extern size_t found;
 extern size_t points;
@@ -42,3 +47,5 @@ extern void create_anagrams(void);
 extern void create_dir(void);
 extern void play_game(void);
 extern void set_rank(void);
+extern void today(void);
+extern void yesterday(void);

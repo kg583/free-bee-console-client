@@ -15,6 +15,7 @@
  */
 
 #include <err.h>
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <term.h>
@@ -22,23 +23,31 @@
 #include "freebee.h"
 #include "version.h"
 
-char *term;
-char foundlist[2000][20], wordlist[2000][20];
-char letters[8];
-size_t found, points, total, words;
+FILE *daily_save;
 
+char *term;
+char foundlist[2000][17], wordlist[2000][17];
+char homedir[PATH_MAX];
+char letters[8];
+
+int daily;
+
+size_t found, points, total, words;
 size_t egg, larva, hatchling, drone, feeder, builder, guard, forager, queen;
 
 static int
-daily(void)
+play_daily(void)
 {
 	int ch;
 
 	putp(clear_screen);
 	printf("Welcome to Free Bee %s\n", VERSION);
-	printf("Are you playing a (d)aily game or a (r)andom game?\n");
+	printf("Are you playing a (d)aily game or a (r)andom game? ");
 
-	if ((ch = getchar()) == 'd' || ch == 'D')
+	ch = getchar();
+	while (getchar() != '\n')
+		;
+	if (ch == 'd' || ch == 'D')
 		return 1;
 
 	return 0;
@@ -49,17 +58,17 @@ main(int argc, char *argv[])
 {
 	int status;
 
+	(void) argc, (void) argv;
+
 	if ((term = getenv("TERM")) == NULL)
 		err(1, "getenv");
 	setupterm(term, 1, &status);
 	if (status == -1)
 		errx(1, "setupterm");
 
-	if (daily() == 1)
-		create_dir();
+	daily = play_daily();
 
-	printf("Creating game, please wait...\n");
-
+	create_dir();
 	create_anagrams();
 	set_rank();
 	play_game();

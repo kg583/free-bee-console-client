@@ -27,16 +27,15 @@
 void
 create_dir(void)
 {
-	char buf[PATH_MAX];
 	mode_t mode;
 
 	mode = 0777 & ~umask(0);
 	if (getenv("HOME") == NULL)
-		snprintf(buf, sizeof(buf), "./");
+		snprintf(homedir, sizeof(homedir), "./");
 	else
-		snprintf(buf, sizeof(buf), "%s/.freebee", getenv("HOME"));
+		snprintf(homedir, sizeof(homedir), "%s/.freebee", getenv("HOME"));
 
-	if (mkdir(buf, mode) == -1) {
+	if (mkdir(homedir, mode) == -1) {
 		if (errno != EEXIST)
 			err(1, "mkdir");
 	}

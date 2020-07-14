@@ -15,10 +15,13 @@
  */
 
 #include <ctype.h>
+#include <err.h>
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <term.h>
+#include <unistd.h>
 
 #include "freebee.h"
 #include "version.h"
@@ -64,11 +67,12 @@ show_found(void)
 
 	printf("\nWords found: %zu\n", found);
 
-	(void) getchar();
+	while (getchar() != '\n')
+		;
 }
 
 static int
-check(char *guess)
+check(char *guess, int cont)
 {
 	char *g;
 	int center = 0;
@@ -83,14 +87,20 @@ check(char *guess)
 	}
 
 	if (center == 0) {
-		printf("Must use center letter\n");
-		(void) getchar();
+		if (cont == 0) {
+			printf("Must use center letter\n");
+			while (getchar() != '\n')
+				;
+		}
 		return 0;
 	}
 
 	if (strlen(guess) - 1 < 4) {
-		printf("Too short!\n");
-		(void) getchar();
+		if (cont == 0) {
+			printf("Too short!\n");
+			while (getchar() != '\n')
+				;
+		}
 		return 0;
 	}
 
@@ -104,6 +114,9 @@ add_points(const char *guess)
 	int i = 0, j = 0;
 
 	one = two = three = four = five = six = 0;
+
+	if (daily == 1)
+		fputs(guess, daily_save);
 
 	if ((i = strlen(guess) - 1) < 7) {
 		if (i == 4)
@@ -144,7 +157,8 @@ add_points(const char *guess)
 	if (one && two && three && four && five && six) {
 		printf("Pangram!\n");
 		points += (strlen(guess) - 1) + 7;
-		(void) getchar();
+		while (getchar() != '\n')
+			;
 	} else {
 		points += strlen(guess) - 1;
 	}
@@ -158,7 +172,8 @@ found_word(const char *guess)
 	for (i = 0; i < found; i++) {
 		if (!strcmp(guess, foundlist[i])) {
 			printf("Word already found\n");
-			(void) getchar();
+			while (getchar() != '\n')
+				;
 			return;
 		}
 	}
@@ -171,7 +186,7 @@ found_word(const char *guess)
 }
 
 static void
-find_word(const char *guess)
+find_word(const char *guess, int cont)
 {
 	size_t i;
 
@@ -182,9 +197,70 @@ find_word(const char *guess)
 		}
 	}
 
-	printf("Word not in list\n");
+	if (cont == 0) {
+		printf("Word not in list\n");
+	} else {
+		printf("Invalid save file, starting anew\n");
+		while (getchar() != '\n')
+			;
+		(void) memset(foundlist, 0, sizeof(foundlist));
+		points = 0;
+	}
 
-	(void) getchar();
+	while (getchar() != '\n')
+		;
+}
+
+static void
+daily_continue(void)
+{
+	char *word = NULL;
+	char buf[PATH_MAX];
+	int ch;
+	size_t wordsize = 0;
+	ssize_t wordlen;
+
+	(void) snprintf(buf, sizeof(buf), "%s/daily.txt", homedir);
+	if ((daily_save = fopen(buf, "r")) == NULL) {
+		if ((daily_save = fopen(buf, "w+")) == NULL)
+			err(1, "fopen");
+
+		return;
+	}
+
+	printf("You appear to have a saved game. Continue? ");
+	ch = getchar();
+	while (getchar() != '\n')
+		;
+
+	if (ch == 'y' || ch == 'Y') {
+		while ((wordlen = getline(&word, &wordsize, daily_save)) != -1) {
+			if (check(word, 1) == 0) {
+				printf("Invalid save file, starting anew\n");
+				while (getchar() != '\n')
+					;
+				(void) memset(foundlist, 0, sizeof(foundlist));
+				points = 0;
+				break;
+			}
+			find_word(word, 1);
+			if (points == 0)
+				break;
+		}
+		free(word);
+
+		(void) fclose(daily_save);
+		if ((daily_save = fopen(buf, "a+")) == NULL)
+			err(1, "fopen");
+
+		return;
+	}
+
+	(void) fclose(daily_save);
+	(void) unlink(buf);
+
+	if ((daily_save = fopen(buf, "w+")) == NULL)
+		return;
 }
 
 /*
@@ -197,6 +273,9 @@ play_game(void)
 	int a = 0, b = 1, c = 2, d = 3, e = 4, f = 5;
 	int afirst = 0, qfirst = 0;
 
+	if (daily == 1)
+		daily_continue();
+
 	while (1) {
 		putp(clear_screen);
 		printf("Free Bee %s | Score: %zu | Rank: %s\n\n", VERSION, points, rank());
@@ -207,14 +286,16 @@ play_game(void)
 		if (qfirst == 0 && !strcmp(rank(), "Queen Bee!")) {
 			printf("You have earned the rank of Queen Bee and won the game!\n");
 			printf("You may continue playing. Can you find all the words?\n");
-			(void) getchar();
+			while (getchar() != '\n')
+				;
 
 			qfirst = 1;
 		}
 
 		if (afirst == 0 && found == words) {
 			printf("You found all the words!\n");
-			(void) getchar();
+			while (getchar() != '\n')
+				;
 
 			afirst = 1;
 		}
@@ -239,9 +320,9 @@ play_game(void)
 			continue;
 		}
 
-		if (check(guess) == 0)
+		if (check(guess, 0) == 0)
 			continue;
 
-		find_word(guess);
+		find_word(guess, 0);
 	}
 }
