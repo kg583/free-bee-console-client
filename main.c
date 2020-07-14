@@ -42,7 +42,7 @@ play_daily(void)
 
 	putp(clear_screen);
 	printf("Welcome to Free Bee %s | https://freebee.fun/\n", VERSION);
-	printf("Are you playing a (d)aily game or a (r)andom game? ");
+	printf("Would you like to play the (d)aily game or a (r)andom game? ");
 
 	ch = getchar();
 	while (getchar() != '\n')
