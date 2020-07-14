@@ -25,41 +25,38 @@ rank(void)
 
 	if (points >= queen)
 		return "Queen Bee!";
-	else if (points >= forager)
-		return "Forager";
-	else if (points >= guard)
-		return "Guard";
-	else if (points >= builder)
-		return "Builder";
-	else if (points >= feeder)
-		return "Feeder";
-	else if (points >= drone)
-		return "Drone";
-	else if (points >= hatchling)
-		return "Hatchling";
-	else if (points >= larva)
-		return "Larva";
+	else if (points >= outstanding)
+		return "Outstanding";
+	else if (points >= marvellous)
+		return "Marvellous";
+	else if (points >= superb)
+		return "Superb";
+	else if (points >= excellent)
+		return "Excellent";
+	else if (points >= skilled)
+		return "Skilled";
+	else if (points >= fine)
+		return "Fine";
+	else if (points >= novice)
+		return "Novice";
 
-	return "Egg";
+	return "Newbie";
 }
 
 /*
  * I did the math on an NYT game.
  * These were the results.
- *
- * NYT uses names like "Nice" and "Genius."
- * Consider revisiting rank names.
  */
 void
 set_rank(void)
 {
 
-	larva = total * 0.02;
-	hatchling = total * 0.05;
-	drone = total * 0.08;
-	feeder = total * 0.15;
-	builder = total * 0.25;
-	guard = total * 0.40;
-	forager = total * 0.50;
+	novice = total * 0.02;
+	fine = total * 0.05;
+	skilled = total * 0.08;
+	excellent = total * 0.15;
+	superb = total * 0.25;
+	marvellous = total * 0.40;
+	outstanding = total * 0.50;
 	queen = total * 0.70;
 }

@@ -33,7 +33,7 @@ char letters[8];
 int daily;
 
 size_t found, points, total, words;
-size_t egg, larva, hatchling, drone, feeder, builder, guard, forager, queen;
+size_t newbie, novice, fine, skilled, excellent, superb, marvellous, outstanding, queen;
 
 static int
 play_daily(void)

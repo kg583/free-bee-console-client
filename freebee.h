@@ -35,14 +35,14 @@ extern size_t total;
 extern size_t words;
 
 /* Score ranks  */
-extern size_t egg;
-extern size_t larva;
-extern size_t hatchling;
-extern size_t drone;
-extern size_t feeder;
-extern size_t builder;
-extern size_t guard;
-extern size_t forager;
+extern size_t newbie;
+extern size_t novice;
+extern size_t fine;
+extern size_t skilled;
+extern size_t excellent;
+extern size_t superb;
+extern size_t marvellous;
+extern size_t outstanding;
 extern size_t queen;
 
 extern const char *rank(void);
