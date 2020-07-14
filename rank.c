@@ -43,6 +43,13 @@ rank(void)
 	return "Egg";
 }
 
+/*
+ * I did the math on an NYT game.
+ * These were the results.
+ *
+ * NYT uses names like "Nice" and "Genius."
+ * Consider revisiting rank names.
+ */
 void
 set_rank(void)
 {
