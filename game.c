@@ -343,6 +343,10 @@ play_game(void)
 
 	restart = 0;
 
+	points = 0;
+	found = 0;
+	(void) memset(foundlist, 0, sizeof(foundlist));
+
 	if (daily == 1)
 		daily_continue();
 
