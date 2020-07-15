@@ -223,10 +223,12 @@ add_points(const char *guess, int cont)
 	}
 
 	if (one && two && three && four && five && six) {
-		printf("Pangram!\n");
 		points += (strlen(guess) - 1) + 7;
-		while (getchar() != '\n')
-			;
+		if (cont == 0) {
+			printf("Pangram!\n");
+			while (getchar() != '\n')
+				;
+		}
 	} else {
 		points += strlen(guess) - 1;
 	}
