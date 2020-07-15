@@ -176,14 +176,14 @@ check(char *guess, int cont)
 }
 
 static void
-add_points(const char *guess)
+add_points(const char *guess, int cont)
 {
 	int one, two, three, four, five, six;
 	int i = 0, j = 0;
 
 	one = two = three = four = five = six = 0;
 
-	if (daily == 1)
+	if (daily == 1 && cont == 0)
 		fputs(guess, daily_save);
 
 	if ((i = strlen(guess) - 1) < 7) {
@@ -233,7 +233,7 @@ add_points(const char *guess)
 }
 
 static void
-found_word(const char *guess)
+found_word(const char *guess, int cont)
 {
 	size_t i;
 
@@ -250,7 +250,7 @@ found_word(const char *guess)
 
 	++found;
 
-	add_points(guess);
+	add_points(guess, cont);
 }
 
 static void
@@ -260,7 +260,7 @@ find_word(const char *guess, int cont)
 
 	for (i = 0; i < words; i++) {
 		if (!strcmp(guess, wordlist[i])) {
-			found_word(guess);
+			found_word(guess, cont);
 			return;
 		}
 	}
@@ -327,8 +327,7 @@ daily_continue(void)
 	(void) fclose(daily_save);
 	(void) unlink(buf);
 
-	if ((daily_save = fopen(buf, "w+")) == NULL)
-		return;
+	daily_save = fopen(buf, "w+");
 }
 
 /*
@@ -342,9 +341,8 @@ play_game(void)
 	int afirst = 0, qfirst = 0;
 
 	restart = 0;
-
-	points = 0;
 	found = 0;
+	points = 0;
 	(void) memset(foundlist, 0, sizeof(foundlist));
 
 	if (daily == 1)
