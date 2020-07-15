@@ -68,8 +68,12 @@ main(int argc, char *argv[])
 	if (status == -1)
 		errx(1, "setupterm");
 
-	cols = 80;
-	rows = 24;
+	if ((cols = tgetnum("co")) == -1)
+		cols = 80;
+	if ((rows = tgetnum("li")) == -1)
+		rows = 24;
+	if (cols < 25 || rows < 15)
+		errx(1, "terminal too small!");
 
 	daily = play_daily();
 
