@@ -73,7 +73,7 @@ show_answers(void)
 		for (j = 0; wordlist[i][j] != '\n'; j++)
 			putchar(wordlist[i][j]);
 		putchar('\n');
-		if (++printed > rows - 4) {
+		if (++printed > rows - 3) {
 			while (getchar() != '\n')
 				;
 			putp(clear_screen);
@@ -82,21 +82,21 @@ show_answers(void)
 	}
 
 	printf("\n");
-	if (++printed > rows - 4) {
+	if (++printed > rows - 3) {
 		while (getchar() != '\n')
 			;
 		putp(clear_screen);
 		printed = 0;
 	}
 	printf("Total words:  %zu\n", words);
-	if (++printed > rows - 4) {
+	if (++printed > rows - 3) {
 		while (getchar() != '\n')
 			;
 		putp(clear_screen);
 		printed = 0;
 	}
 	printf("Total points: %zu\n", total);
-	if (++printed > rows - 4) {
+	if (++printed > rows - 3) {
 		while (getchar() != '\n')
 			;
 		putp(clear_screen);
@@ -118,7 +118,7 @@ show_found(void)
 	putp(clear_screen);
 	for (i = 0; i < found; i++) {
 		printf("%s", foundlist[i]);
-		if (++printed > rows - 4) {
+		if (++printed > rows - 3) {
 			while (getchar() != '\n')
 				;
 			putp(clear_screen);
@@ -127,7 +127,7 @@ show_found(void)
 	}
 
 	printf("\n");
-	if (++printed > rows - 4) {
+	if (++printed > rows - 3) {
 		while (getchar() != '\n')
 			;
 		putp(clear_screen);

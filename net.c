@@ -97,7 +97,7 @@ yesterday(void)
 		while ((ch = fgetc(fp)) != EOF) {
 			fputc(ch, stdout);
 			if (ch == '\n') {
-				if (++printed > rows - 4) {
+				if (++printed > rows - 3) {
 					while (getchar() != '\n')
 						;
 					putp(clear_screen);
@@ -111,5 +111,7 @@ yesterday(void)
 
 		while (getchar() != '\n')
 			;
+
+		putp(clear_screen);
 	}
 }
