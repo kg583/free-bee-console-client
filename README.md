@@ -33,7 +33,8 @@ Compiling
 ---------
 Just run `make`. Development of Free Bee is done on OpenBSD and I'm using
 some OpenBSD extensions. Please edit the
-`CFLAGS += -DHAVE_ARC4RANDOM_UNIFORM -DHAVE_STRLCAT` line in the `Makefile`
+`CFLAGS += -DHAVE_ARC4RANDOM_UNIFORM -DHAVE_STRLCAT` and the
+CFLAGS += -DHAVE_PLEDGE -DHAVE_UNVEIL lines in the `Makefile`
 to reflect whether or not your system has those extensions or needs the
 portable versions included in this repository.
 

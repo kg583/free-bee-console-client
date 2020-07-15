@@ -18,6 +18,8 @@
 #define DICTIONARY "/usr/local/share/freebee/sowpods.txt"
 #endif
 
+#define CERT "/etc/ssl/cert.pem"
+
 extern FILE *daily_save;
 
 extern char *term;
@@ -31,6 +33,7 @@ extern int cols;
 extern int daily;
 extern int restart;
 extern int rows;
+extern int unveiled;
 
 extern size_t found;
 extern size_t points;
