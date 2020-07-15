@@ -29,6 +29,7 @@ extern char wordlist[2000][17];
 
 extern int cols;
 extern int daily;
+extern int restart;
 extern int rows;
 
 extern size_t found;
@@ -53,6 +54,7 @@ extern void create_anagrams(void);
 extern void create_dir(void);
 extern void play_game(void);
 extern void set_rank(void);
+extern void setup_game(void);
 extern void today(void);
 extern void yesterday(void);
 

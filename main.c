@@ -32,6 +32,7 @@ char letters[8];
 
 int cols, rows;
 int daily;
+int restart;
 
 size_t found, points, total, words;
 size_t newbie, novice, fine, skilled, excellent, superb, marvellous, outstanding, queen;
@@ -54,6 +55,18 @@ play_daily(void)
 	return 0;
 }
 
+void
+setup_game(void)
+{
+
+	daily = play_daily();
+
+	create_dir();
+	create_anagrams();
+	set_rank();
+	play_game();
+}
+
 int
 main(int argc, char *argv[])
 {
@@ -72,15 +85,12 @@ main(int argc, char *argv[])
 		cols = 80;
 	if ((rows = tgetnum("li")) == -1)
 		rows = 24;
-	if (cols < 25 || rows < 15)
+	if (cols < 25 || rows < 17)
 		errx(1, "terminal too small!");
 
-	daily = play_daily();
-
-	create_dir();
-	create_anagrams();
-	set_rank();
-	play_game();
+	restart = 1;
+	while (restart == 1)
+		setup_game();
 
 	return 0;
 }

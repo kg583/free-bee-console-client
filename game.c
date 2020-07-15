@@ -341,6 +341,8 @@ play_game(void)
 	int a = 0, b = 1, c = 2, d = 3, e = 4, f = 5;
 	int afirst = 0, qfirst = 0;
 
+	restart = 0;
+
 	if (daily == 1)
 		daily_continue();
 
@@ -372,6 +374,7 @@ play_game(void)
 		printf("! to display found words\n");
 		if (daily == 0)
 			printf("& to display answers\n");
+		printf("%% to return to main menu\n");
 		printf("; to quit\n\n");
 
 		printf("Enter a word: ");
@@ -393,6 +396,11 @@ play_game(void)
 		if (daily == 0 && guess[0] == '&') {
 			show_answers();
 			continue;
+		}
+
+		if (guess[0] == '%') {
+			restart = 1;
+			break;
 		}
 
 		if (check(guess, 0) == 0)
