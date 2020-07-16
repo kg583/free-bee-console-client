@@ -406,5 +406,6 @@ play_game(void)
 		find_word(guess, 0);
 	}
 
-	(void) fclose(daily_save);
+	if (daily == 1)
+		(void) fclose(daily_save);
 }
