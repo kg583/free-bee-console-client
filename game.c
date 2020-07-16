@@ -30,41 +30,27 @@
  * Fisher-Yates shuffle
  */
 static void
-shuffle(int *a, int *b, int *c, int *d, int *e, int *f)
+shuffle(void)
 {
-	int array[6], i, j, t;
-
-	array[0] = *a;
-	array[1] = *b;
-	array[2] = *c;
-	array[3] = *d;
-	array[4] = *e;
-	array[5] = *f;
+	int i, j, t;
 
 	for (i = 5; i > 0; i--) {
 		j = arc4random_uniform(i + 1);
-		t = array[j];
-		array[j] = array[i];
-		array[i] = t;
+		t = letters[j];
+		letters[j] = letters[i];
+		letters[i] = t;
 	}
-
-	*a = array[0];
-	*b = array[1];
-	*c = array[2];
-	*d = array[3];
-	*e = array[4];
-	*f = array[5];
 }
 
 static void
 show_answers(void)
 {
-	int printed = 7; /* Number of \n in heading */
+	int printed = 8; /* Number of \n in heading */
 	size_t i, j, queens;
 
 	putp(clear_screen);
 
-	putchar('\n');
+	printf("Free Bee %s | Score: %zu | Rank: %s | https://freebee.fun/\n\n", VERSION, points, rank());
 	printf("          %c     %c\n\n", letters[0], letters[1]);
 	printf("       %c     %c     %c\n\n", letters[2], letters[6], letters[3]);
 	printf("          %c     %c\n\n", letters[4], letters[5]);
@@ -112,10 +98,16 @@ show_answers(void)
 static void
 show_found(void)
 {
-	int printed = 0;
+	int printed = 8;
 	size_t i;
 
 	putp(clear_screen);
+
+	printf("Free Bee %s | Score: %zu | Rank: %s | https://freebee.fun/\n\n", VERSION, points, rank());
+	printf("          %c     %c\n\n", letters[0], letters[1]);
+	printf("       %c     %c     %c\n\n", letters[2], letters[6], letters[3]);
+	printf("          %c     %c\n\n", letters[4], letters[5]);
+
 	for (i = 0; i < found; i++) {
 		printf("%s", foundlist[i]);
 		if (++printed > rows - 3) {
@@ -339,7 +331,6 @@ void
 play_game(void)
 {
 	char guess[32];
-	int a = 0, b = 1, c = 2, d = 3, e = 4, f = 5;
 	int afirst = 0, qfirst = 0;
 
 	restart = 0;
@@ -352,10 +343,11 @@ play_game(void)
 
 	while (1) {
 		putp(clear_screen);
+
 		printf("Free Bee %s | Score: %zu | Rank: %s | https://freebee.fun/\n\n", VERSION, points, rank());
-		printf("          %c     %c\n\n", letters[a], letters[b]);
-		printf("       %c     %c     %c\n\n", letters[c], letters[6], letters[d]);
-		printf("          %c     %c\n\n", letters[e], letters[f]);
+		printf("          %c     %c\n\n", letters[0], letters[1]);
+		printf("       %c     %c     %c\n\n", letters[2], letters[6], letters[3]);
+		printf("          %c     %c\n\n", letters[4], letters[5]);
 
 		if (qfirst == 0 && !strcmp(rank(), "Queen Bee!")) {
 			printf("You have earned the rank of Queen Bee and won the game!\n");
@@ -388,7 +380,7 @@ play_game(void)
 			break;
 
 		if (guess[0] == '?') {
-			shuffle(&a, &b, &c, &d, &e, &f);
+			shuffle();
 			continue;
 		}
 
