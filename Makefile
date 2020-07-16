@@ -6,7 +6,7 @@ CFLAGS +=	-I/usr/local/include
 
 # Remove if your system doesn't have
 # arc4random_uniform(3) and/or strlcat(3)
-# pledge(2) and or unveil(2)
+# Same with pledge(2) and/or unveil(2)
 CFLAGS +=	-DHAVE_ARC4RANDOM_UNIFORM -DHAVE_STRLCAT
 CFLAGS +=	-DHAVE_PLEDGE -DHAVE_UNVEIL
 

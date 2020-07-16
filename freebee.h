@@ -18,7 +18,9 @@
 #define DICTIONARY "/usr/local/share/freebee/sowpods.txt"
 #endif
 
+#ifndef CERT
 #define CERT "/etc/ssl/cert.pem"
+#endif
 
 extern FILE *daily_save;
 

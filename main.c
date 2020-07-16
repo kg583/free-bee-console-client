@@ -45,7 +45,7 @@ play_daily(void)
 	int ch;
 
 	putp(clear_screen);
-	printf("Welcome to Free Bee %s | https://freebee.fun/\n", VERSION);
+	printf("Free Bee %s | https://freebee.fun/\n\n", VERSION);
 	printf("Would you like to play the (d)aily game or a (r)andom game? ");
 
 	ch = getchar();
@@ -84,8 +84,8 @@ main(int argc, char *argv[])
 		errx(1, "setupterm");
 
 #ifdef HAVE_PLEDGE
-	if (pledge("stdio cpath rpath wpath dns inet unveil", NULL) == -1)
-		errx(1, "pledge");
+	if (pledge("stdio rpath wpath cpath inet dns unveil", NULL) == -1)
+		err(1, "pledge");
 #endif /* HAVE_PLEDGE */
 
 	if ((cols = tgetnum("co")) == -1)

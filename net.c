@@ -22,6 +22,7 @@
 #include <unistd.h>
 
 #include "freebee.h"
+#include "version.h"
 
 void
 today(void)
@@ -69,7 +70,7 @@ yesterday(void)
 	CURL *curl;
 	FILE *fp;
 	char buf[PATH_MAX];
-	int ch, printed = 0;
+	int ch, printed = 2;
 
 	curl = curl_easy_init();
 	if (curl) {
@@ -82,8 +83,6 @@ yesterday(void)
 		if ((fp = fopen(buf, "w+")) == NULL)
 			return;
 
-		(void) unlink(buf);
-
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
  
 		/* Perform the request */
@@ -94,6 +93,9 @@ yesterday(void)
 		(void) fseek(fp, 0L, SEEK_SET);
 
 		putp(clear_screen);
+
+		printf("Free Bee %s | https://freebee.fun/\n\n", VERSION);
+
 		while ((ch = fgetc(fp)) != EOF) {
 			fputc(ch, stdout);
 			if (ch == '\n') {
@@ -101,7 +103,8 @@ yesterday(void)
 					while (getchar() != '\n')
 						;
 					putp(clear_screen);
-					printed = 0;
+					printf("Free Bee %s | https://freebee.fun/\n\n", VERSION);
+					printed = 2;
 				}
 			}
 		}

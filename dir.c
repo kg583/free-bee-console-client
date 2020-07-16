@@ -39,13 +39,13 @@ create_dir(void)
 #ifdef HAVE_UNVEIL
 	if (!unveiled) {
 		if (unveil(homedir, "rwc") == -1)
-			errx(1, "unveil");
+			err(1, "unveil");
 		if (unveil(CERT, "r") == -1)
-			errx(1, "unveil");
+			err(1, "unveil");
 		if (unveil(DICTIONARY, "rx") == -1)
-			errx(1, "unveil");
+			err(1, "unveil");
 		if (unveil(NULL, NULL) != 0)
-			errx(1, "unveil");
+			err(1, "unveil");
 		unveiled = 1;
 	}
 #endif /* HAVE_UNVEIL */

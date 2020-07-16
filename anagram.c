@@ -21,6 +21,7 @@
 #include <string.h>
 
 #include "freebee.h"
+#include "version.h"
 
 static void
 random_letters(void)
@@ -85,6 +86,8 @@ again:
 
 	if (!notfirst) {
 		++notfirst;
+		if (daily == 1)
+			printf("Free Bee %s | https://freebee.fun/\n\n", VERSION);
 		printf("Creating game, please wait...\n");
 	}
 

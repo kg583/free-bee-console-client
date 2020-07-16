@@ -63,7 +63,8 @@ show_answers(void)
 			while (getchar() != '\n')
 				;
 			putp(clear_screen);
-			printed = 0;
+			printf("Free Bee %s | Score: %zu | Rank: %s | https://freebee.fun/\n\n", VERSION, points, rank());
+			printed = 2;
 		}
 	}
 
@@ -114,7 +115,8 @@ show_found(void)
 			while (getchar() != '\n')
 				;
 			putp(clear_screen);
-			printed = 0;
+			printf("Free Bee %s | Score: %zu | Rank: %s | https://freebee.fun/\n\n", VERSION, points, rank());
+			printed = 2;
 		}
 	}
 
