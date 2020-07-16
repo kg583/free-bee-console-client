@@ -19,6 +19,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <term.h>
+#include <unistd.h>
 
 #include "freebee.h"
 #include "version.h"
@@ -33,6 +34,7 @@ char letters[8];
 int cols, rows;
 int daily;
 int restart;
+int unveiled;
 
 size_t found, points, total, words;
 size_t newbie, novice, fine, skilled, excellent, superb, marvellous, outstanding, queen;
@@ -80,6 +82,11 @@ main(int argc, char *argv[])
 	setupterm(term, 1, &status);
 	if (status == -1)
 		errx(1, "setupterm");
+
+#ifdef HAVE_PLEDGE
+	if (pledge("stdio cpath rpath wpath dns inet unveil", NULL) == -1)
+		errx(1, "pledge");
+#endif /* HAVE_PLEDGE */
 
 	if ((cols = tgetnum("co")) == -1)
 		cols = 80;

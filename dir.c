@@ -21,6 +21,7 @@
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "freebee.h"
 
@@ -34,6 +35,20 @@ create_dir(void)
 		snprintf(homedir, sizeof(homedir), "./");
 	else
 		snprintf(homedir, sizeof(homedir), "%s/.freebee", getenv("HOME"));
+
+#ifdef HAVE_UNVEIL
+	if (!unveiled) {
+		if (unveil(homedir, "rwc") == -1)
+			errx(1, "unveil");
+		if (unveil(CERT, "r") == -1)
+			errx(1, "unveil");
+		if (unveil(DICTIONARY, "rx") == -1)
+			errx(1, "unveil");
+		if (unveil(NULL, NULL) != 0)
+			errx(1, "unveil");
+		unveiled = 1;
+	}
+#endif /* HAVE_UNVEIL */
 
 	if (mkdir(homedir, mode) == -1) {
 		if (errno != EEXIST)
