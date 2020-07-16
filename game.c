@@ -43,6 +43,16 @@ shuffle(void)
 }
 
 static void
+print_header(void)
+{
+
+	printf("Free Bee %s | Score: %zu | Rank: %s | https://freebee.fun/\n\n", VERSION, points, rank());
+	printf("          %c     %c\n\n", letters[0], letters[1]);
+	printf("       %c     %c     %c\n\n", letters[2], letters[6], letters[3]);
+	printf("          %c     %c\n\n", letters[4], letters[5]);
+}
+
+static void
 show_answers(void)
 {
 	int printed = 8; /* Number of \n in heading */
@@ -50,10 +60,7 @@ show_answers(void)
 
 	putp(clear_screen);
 
-	printf("Free Bee %s | Score: %zu | Rank: %s | https://freebee.fun/\n\n", VERSION, points, rank());
-	printf("          %c     %c\n\n", letters[0], letters[1]);
-	printf("       %c     %c     %c\n\n", letters[2], letters[6], letters[3]);
-	printf("          %c     %c\n\n", letters[4], letters[5]);
+	print_header();
 
 	for (i = 0; i < words; i++) {
 		for (j = 0; wordlist[i][j] != '\n'; j++)
@@ -63,8 +70,8 @@ show_answers(void)
 			while (getchar() != '\n')
 				;
 			putp(clear_screen);
-			printf("Free Bee %s | Score: %zu | Rank: %s | https://freebee.fun/\n\n", VERSION, points, rank());
-			printed = 2;
+			print_header();
+			printed = 8;
 		}
 	}
 
@@ -73,21 +80,24 @@ show_answers(void)
 		while (getchar() != '\n')
 			;
 		putp(clear_screen);
-		printed = 0;
+		print_header();
+		printed = 8;
 	}
 	printf("Total words:  %zu\n", words);
 	if (++printed > rows - 3) {
 		while (getchar() != '\n')
 			;
 		putp(clear_screen);
-		printed = 0;
+		print_header();
+		printed = 8;
 	}
 	printf("Total points: %zu\n", total);
 	if (++printed > rows - 3) {
 		while (getchar() != '\n')
 			;
 		putp(clear_screen);
-		printed = 0;
+		print_header();
+		printed = 8;
 	}
 	queens = total * 0.70;
 	printf("Points for Queen Bee: %zu\n", queens);
@@ -104,10 +114,7 @@ show_found(void)
 
 	putp(clear_screen);
 
-	printf("Free Bee %s | Score: %zu | Rank: %s | https://freebee.fun/\n\n", VERSION, points, rank());
-	printf("          %c     %c\n\n", letters[0], letters[1]);
-	printf("       %c     %c     %c\n\n", letters[2], letters[6], letters[3]);
-	printf("          %c     %c\n\n", letters[4], letters[5]);
+	print_header();
 
 	for (i = 0; i < found; i++) {
 		printf("%s", foundlist[i]);
@@ -115,8 +122,8 @@ show_found(void)
 			while (getchar() != '\n')
 				;
 			putp(clear_screen);
-			printf("Free Bee %s | Score: %zu | Rank: %s | https://freebee.fun/\n\n", VERSION, points, rank());
-			printed = 2;
+			print_header();
+			printed = 8;
 		}
 	}
 
@@ -125,7 +132,8 @@ show_found(void)
 		while (getchar() != '\n')
 			;
 		putp(clear_screen);
-		printed = 0;
+		print_header();
+		printed = 8;
 	}
 	printf("Words found: %zu\n", found);
 
@@ -177,7 +185,7 @@ add_points(const char *guess, int cont)
 
 	one = two = three = four = five = six = 0;
 
-	if (daily == 1 && cont == 0)
+	if (daily == 1)
 		fputs(guess, daily_save);
 
 	if ((i = strlen(guess) - 1) < 7) {
@@ -235,9 +243,18 @@ found_word(const char *guess, int cont)
 
 	for (i = 0; i < found; i++) {
 		if (!strcmp(guess, foundlist[i])) {
-			printf("Word already found\n");
+			if (cont == 0) {
+				printf("Word already found\n");
+			} else {
+				(void) memset(foundlist, 0, sizeof(foundlist));
+				points = 0;
+
+				return;
+			}
+
 			while (getchar() != '\n')
 				;
+
 			return;
 		}
 	}
@@ -264,11 +281,10 @@ find_word(const char *guess, int cont)
 	if (cont == 0) {
 		printf("Word not in list\n");
 	} else {
-		printf("Invalid save file, starting anew\n");
-		while (getchar() != '\n')
-			;
 		(void) memset(foundlist, 0, sizeof(foundlist));
 		points = 0;
+
+		return;
 	}
 
 	while (getchar() != '\n')
@@ -286,44 +302,30 @@ daily_continue(void)
 
 	(void) snprintf(buf, sizeof(buf), "%s/daily.txt", homedir);
 	if ((daily_save = fopen(buf, "r")) == NULL) {
-		if ((daily_save = fopen(buf, "w+")) == NULL)
-			err(1, "fopen");
+		daily_save = fopen(buf, "w+");
 
 		return;
 	}
 
-	printf("You appear to have a saved game. Continue? (y/n) ");
-	ch = getchar();
-	while (getchar() != '\n')
-		;
-
-	if (ch == 'y' || ch == 'Y') {
-		while ((wordlen = getline(&word, &wordsize, daily_save)) != -1) {
-			if (check(word, 1) == 0) {
-				printf("Invalid save file, starting anew\n");
-				while (getchar() != '\n')
-					;
-				(void) memset(foundlist, 0, sizeof(foundlist));
-				points = 0;
-				break;
-			}
-			find_word(word, 1);
-			if (points == 0)
-				break;
+	while ((wordlen = getline(&word, &wordsize, daily_save)) != -1) {
+		if (check(word, 1) == 0) {
+			(void) memset(foundlist, 0, sizeof(foundlist));
+			points = 0;
+			break;
 		}
-		free(word);
-
-		(void) fclose(daily_save);
-		if ((daily_save = fopen(buf, "a+")) == NULL)
-			err(1, "fopen");
-
-		return;
+		find_word(word, 1);
+		if (points == 0)
+			break;
 	}
+	free(word);
 
 	(void) fclose(daily_save);
 	(void) unlink(buf);
 
-	daily_save = fopen(buf, "w+");
+	if ((daily_save = fopen(buf, "w+")) != NULL) {
+		for (ch = 0; ch < found; ch++)
+			fputs(foundlist[ch], daily_save);
+	}
 }
 
 /*
@@ -346,10 +348,7 @@ play_game(void)
 	while (1) {
 		putp(clear_screen);
 
-		printf("Free Bee %s | Score: %zu | Rank: %s | https://freebee.fun/\n\n", VERSION, points, rank());
-		printf("          %c     %c\n\n", letters[0], letters[1]);
-		printf("       %c     %c     %c\n\n", letters[2], letters[6], letters[3]);
-		printf("          %c     %c\n\n", letters[4], letters[5]);
+		print_header();
 
 		if (qfirst == 0 && !strcmp(rank(), "Queen Bee!")) {
 			printf("You have earned the rank of Queen Bee and won the game!\n");
@@ -406,4 +405,6 @@ play_game(void)
 
 		find_word(guess, 0);
 	}
+
+	(void) fclose(daily_save);
 }

@@ -18,6 +18,7 @@
 
 #include <limits.h>
 #include <stdio.h>
+#include <string.h>
 #include <term.h>
 #include <unistd.h>
 
@@ -70,7 +71,7 @@ yesterday(void)
 	CURL *curl;
 	FILE *fp;
 	char buf[PATH_MAX];
-	int ch, printed = 2;
+	int ch, i, printed = 8;
 
 	curl = curl_easy_init();
 	if (curl) {
@@ -96,6 +97,46 @@ yesterday(void)
 
 		printf("Free Bee %s | https://freebee.fun/\n\n", VERSION);
 
+		/* We need to get the letters separately for UI consistency.  */
+		for (i = 0; i < sizeof(letters) - 1; i++) {
+			while ((ch = fgetc(fp)) == '\n' || ch == ' ' || ch == '\t' || ch == EOF) {
+				if (ch == EOF) {
+					puts("Corrupted answer sheet!");
+					goto out;
+				}
+			}
+			letters[i] = ch;
+		}
+		i = letters[3];
+		letters[3] = letters[6];
+		letters[6] = i;
+
+		i = letters[3];
+		letters[3] = letters[5];
+		letters[5] = i;
+
+		i = letters[3];
+		letters[3] = letters[4];
+		letters[4] = i;
+
+		if (letters[6] == '\0') {
+			puts("Corrupted answer sheet!");
+			goto out;
+		}
+
+		while ((ch = fgetc(fp)) != EOF) {
+			if (ch != '\n' && ch != ' ' && ch != '\t')
+				break;
+		}
+
+		putp(clear_screen);
+
+		printf("Free Bee %s | https://freebee.fun/\n\n", VERSION);
+		printf("          %c     %c\n\n", letters[0], letters[1]);
+		printf("       %c     %c     %c\n\n", letters[2], letters[6], letters[3]);
+		printf("          %c     %c\n\n", letters[4], letters[5]);
+
+		fputc(ch, stdout);
 		while ((ch = fgetc(fp)) != EOF) {
 			fputc(ch, stdout);
 			if (ch == '\n') {
@@ -104,10 +145,16 @@ yesterday(void)
 						;
 					putp(clear_screen);
 					printf("Free Bee %s | https://freebee.fun/\n\n", VERSION);
-					printed = 2;
+					printf("          %c     %c\n\n", letters[0], letters[1]);
+					printf("       %c     %c     %c\n\n", letters[2], letters[6], letters[3]);
+					printf("          %c     %c\n\n", letters[4], letters[5]);
+					printed = 8;
 				}
 			}
 		}
+
+out:
+		(void) memset(letters, 0, sizeof(letters));
 
 		(void) fclose(fp);
 		(void) unlink(buf);

@@ -19,6 +19,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <term.h>
 
 #include "freebee.h"
 #include "version.h"
@@ -86,8 +87,8 @@ again:
 
 	if (!notfirst) {
 		++notfirst;
-		if (daily == 1)
-			printf("Free Bee %s | https://freebee.fun/\n\n", VERSION);
+		putp(clear_screen);
+		printf("Free Bee %s | https://freebee.fun/\n\n", VERSION);
 		printf("Creating game, please wait...\n");
 	}
 
