@@ -1,6 +1,6 @@
 Free Bee console client
 =======================
-This is ncurses-based console client for Free Bee.
+This is the ncurses-based console client for Free Bee.
 
 What is Free Bee?
 -----------------
