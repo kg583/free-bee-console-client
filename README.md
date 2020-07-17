@@ -1,6 +1,11 @@
-Free Bee
-========
-Free Bee is a free clone of The New York Times game Spelling Bee.
+Free Bee console client
+=======================
+This is ncurses-based console client for Free Bee.
+
+What is Free Bee?
+-----------------
+Free Bee is an enhanced Free Software clone of The New York Times game
+Spelling Bee.
 
 In this game, your goal is to find as many words as you can with the seven
 letters you are given. You don't have to use any letter except the middle
@@ -16,10 +21,6 @@ original game, you are not restricted to only a single game per day!
 
 The only notable difference between Free Bee and the original game is the use
  of the SOWPODS dictionary instead of the NYT dictionary. Patches welcome.
-
-This is a very quickly made prototype for the terminal. Patches welcome.
-
-There are plans to make this into a full-fledged desktop and web application.
 
 Find us on the web at https://freebee.fun/
 
