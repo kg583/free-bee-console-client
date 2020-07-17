@@ -352,17 +352,13 @@ play_game(void)
 
 		if (qfirst == 0 && !strcmp(rank(), "Queen Bee!")) {
 			printf("You have earned the rank of Queen Bee and won the game!\n");
-			printf("You may continue playing. Can you find all the words? (y/n)\n");
-			while (getchar() != '\n')
-				;
+			printf("You may continue playing. Can you find all the words?\n\n");
 
 			qfirst = 1;
 		}
 
 		if (afirst == 0 && found == words) {
-			printf("You found all the words!\n");
-			while (getchar() != '\n')
-				;
+			printf("You found all the words!\n\n");
 
 			afirst = 1;
 		}
