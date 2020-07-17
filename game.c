@@ -358,7 +358,7 @@ play_game(void)
 		}
 
 		if (afirst == 0 && found == words) {
-			printf("You found all the words!\n\n");
+			printf("Congratulations! You found all the words!\n\n");
 
 			afirst = 1;
 		}

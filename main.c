@@ -92,7 +92,7 @@ main(int argc, char *argv[])
 		cols = 80;
 	if ((rows = tgetnum("li")) == -1)
 		rows = 24;
-	if (cols < 25 || rows < 17)
+	if (cols < 25 || rows < 20)
 		errx(1, "terminal too small!");
 
 	restart = 1;
