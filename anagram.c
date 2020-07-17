@@ -138,9 +138,9 @@ again:
 			++words;
 			if (special && one && two && three && four && five && six) {
 				pangram = 1;
-				total += strlen(word) + 7;
+				total += (strlen(word) - 1) + 7;
 			} else {
-				if ((i = strlen(word)) == 4)
+				if ((i = (strlen(word) - 1)) == 4)
 					i = 1;
 				total += i;
 			}
