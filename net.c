@@ -71,7 +71,8 @@ yesterday(void)
 	CURL *curl;
 	FILE *fp;
 	char buf[PATH_MAX];
-	int ch, i, printed = 8;
+	int ch, printed = 8;
+	size_t i;
 
 	curl = curl_easy_init();
 	if (curl) {

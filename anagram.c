@@ -27,7 +27,7 @@
 static void
 random_letters(void)
 {
-	int i, j;
+	size_t i, j;
 
 	for (i = 0; i < sizeof(letters) - 1; i++) {
 bad:

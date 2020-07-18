@@ -148,10 +148,10 @@ check(char *guess, int cont)
 	int center = 0;
 
 	for (g = guess; *g != '\n'; g++) {
-		if (!isalpha(*g))
+		if (!isalpha((unsigned char) *g))
 			return 0;
-		if (isupper(*g))
-			*g = tolower(*g);
+		if (isupper((unsigned char) *g))
+			*g = tolower((unsigned char) *g);
 		if (*g == letters[6])
 			center = 1;
 	}
@@ -181,7 +181,7 @@ static void
 add_points(const char *guess, int cont)
 {
 	int one, two, three, four, five, six;
-	int i = 0, j = 0;
+	size_t i = 0, j = 0;
 
 	one = two = three = four = five = six = 0;
 
@@ -296,8 +296,7 @@ daily_continue(void)
 {
 	char *word = NULL;
 	char buf[PATH_MAX];
-	int ch;
-	size_t wordsize = 0;
+	size_t i, wordsize = 0;
 	ssize_t wordlen;
 
 	(void) snprintf(buf, sizeof(buf), "%s/daily.txt", homedir);
@@ -323,8 +322,8 @@ daily_continue(void)
 	(void) unlink(buf);
 
 	if ((daily_save = fopen(buf, "w+")) != NULL) {
-		for (ch = 0; ch < found; ch++)
-			fputs(foundlist[ch], daily_save);
+		for (i = 0; i < found; i++)
+			fputs(foundlist[i], daily_save);
 	}
 }
 
