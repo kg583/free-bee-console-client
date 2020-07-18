@@ -16,6 +16,7 @@
 
 #include <curl/curl.h>
 
+#include <ctype.h>
 #include <limits.h>
 #include <stdio.h>
 #include <string.h>
@@ -54,8 +55,9 @@ today(void)
 
 		(void) fseek(fp, 0L, SEEK_SET);
 		while ((ch = fgetc(fp)) != EOF) {
-			if (i > 6)
+			if (i > 6 || !isalpha((unsigned char) ch))
 				break;
+
 			letters[i++] = ch;
 		}
 
@@ -106,6 +108,12 @@ yesterday(void)
 					goto out;
 				}
 			}
+
+			if (!isalpha((unsigned char) ch)) {
+				puts("Corrupted answer sheet!");
+				goto out;
+			}
+
 			letters[i] = ch;
 		}
 		i = letters[3];
@@ -139,6 +147,11 @@ yesterday(void)
 
 		fputc(ch, stdout);
 		while ((ch = fgetc(fp)) != EOF) {
+			if (!isprint(ch) && !isblank(ch) && ch != '\n') {
+				puts("Corrupted answer sheet!");
+				break;
+			}
+
 			fputc(ch, stdout);
 			if (ch == '\n') {
 				if (++printed > rows - 3) {
