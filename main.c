@@ -72,7 +72,6 @@ setup_game(void)
 int
 main(int argc, char *argv[])
 {
-	const char *e;
 	int status;
 
 	(void) argc, (void) argv;
