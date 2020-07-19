@@ -47,11 +47,11 @@ print_header(void)
 {
 
 	printf("Free Bee %s | Score: %zu | Rank: %s | https://freebee.fun/\n\n", VERSION, points, rank());
-	printf("              %c\n", letters[0]);
-	printf("          %c       %c\n", letters[1], letters[2]);
-	printf("              %c\n", letters[3]);
-	printf("          %c       %c\n", letters[4], letters[5]);
-	printf("              %c\n\n", letters[6]);
+	printf("              %c\n", letters[1]);
+	printf("          %c       %c\n", letters[0], letters[2]);
+	printf("              %c\n", letters[6]);
+	printf("          %c       %c\n", letters[3], letters[5]);
+	printf("              %c\n\n", letters[4]);
 }
 
 static void

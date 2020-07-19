@@ -141,11 +141,11 @@ yesterday(void)
 		putp(clear_screen);
 
 		printf("Free Bee %s | https://freebee.fun/\n\n", VERSION);
-		printf("              %c\n", letters[0]);
-		printf("          %c       %c\n", letters[1], letters[2]);
-		printf("              %c\n", letters[3]);
-		printf("          %c       %c\n", letters[4], letters[5]);
-		printf("              %c\n\n", letters[6]);
+		printf("              %c\n", letters[1]);
+		printf("          %c       %c\n", letters[0], letters[2]);
+		printf("              %c\n", letters[6]);
+		printf("          %c       %c\n", letters[3], letters[5]);
+		printf("              %c\n\n", letters[4]);
 
 		fputc(ch, stdout);
 		while ((ch = fgetc(fp)) != EOF) {
@@ -161,11 +161,11 @@ yesterday(void)
 						;
 					putp(clear_screen);
 					printf("Free Bee %s | https://freebee.fun/\n\n", VERSION);
-					printf("              %c\n", letters[0]);
-					printf("          %c       %c\n", letters[1], letters[2]);
-					printf("              %c\n", letters[3]);
-					printf("          %c       %c\n", letters[4], letters[5]);
-					printf("              %c\n\n", letters[6]);
+					printf("              %c\n", letters[1]);
+					printf("          %c       %c\n", letters[0], letters[2]);
+					printf("              %c\n", letters[6]);
+					printf("          %c       %c\n", letters[3], letters[5]);
+					printf("              %c\n\n", letters[4]);
 					printed = 8;
 				}
 			}
