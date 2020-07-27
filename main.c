@@ -57,7 +57,7 @@ play_daily(void)
 	return 0;
 }
 
-void
+static void
 setup_game(void)
 {
 

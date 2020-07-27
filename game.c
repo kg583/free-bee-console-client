@@ -158,18 +158,18 @@ check(char *guess, int cont)
 			center = 1;
 	}
 
-	if (center == 0) {
+	if (strlen(guess) - 1 < 4) {
 		if (cont == 0) {
-			printf("Must use center letter\n");
+			printf("Too short!\n");
 			while (getchar() != '\n')
 				;
 		}
 		return 0;
 	}
 
-	if (strlen(guess) - 1 < 4) {
+	if (center == 0) {
 		if (cont == 0) {
-			printf("Too short!\n");
+			printf("Must use center letter\n");
 			while (getchar() != '\n')
 				;
 		}

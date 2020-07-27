@@ -59,7 +59,6 @@ extern void create_anagrams(void);
 extern void create_dir(void);
 extern void play_game(void);
 extern void set_rank(void);
-extern void setup_game(void);
 extern void today(void);
 extern void yesterday(void);
 
