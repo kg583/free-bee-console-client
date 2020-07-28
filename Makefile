@@ -21,7 +21,8 @@ MANDIR ?=	${PREFIX}/man/man6
 SHAREDIR ?=	${PREFIX}/share/freebee
 
 PROG =	freebee
-OBJS =	anagram.o arc4random_uniform.o dir.o game.o main.o net.o rank.o strlcat.o
+OBJS =	anagram.o arc4random_uniform.o dir.o game.o main.o net.o rank.o \
+	strlcat.o
 
 all: ${OBJS}
 	${CC} ${LDFLAGS} -o ${PROG} ${OBJS} -lncurses -L/usr/local/lib -lcurl

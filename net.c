@@ -26,6 +26,20 @@
 #include "freebee.h"
 #include "version.h"
 
+static void
+print_header(void)
+{
+
+	putp(clear_screen);
+
+	printf("Free Bee %s | https://freebee.fun/\n\n", VERSION);
+	printf("              %c\n", letters[1]);
+	printf("          %c       %c\n", letters[0], letters[2]);
+	printf("              %c\n", letters[6]);
+	printf("          %c       %c\n", letters[3], letters[5]);
+	printf("              %c\n\n", letters[4]);
+}
+
 void
 today(void)
 {
@@ -138,14 +152,7 @@ yesterday(void)
 				break;
 		}
 
-		putp(clear_screen);
-
-		printf("Free Bee %s | https://freebee.fun/\n\n", VERSION);
-		printf("              %c\n", letters[1]);
-		printf("          %c       %c\n", letters[0], letters[2]);
-		printf("              %c\n", letters[6]);
-		printf("          %c       %c\n", letters[3], letters[5]);
-		printf("              %c\n\n", letters[4]);
+		print_header();
 
 		fputc(ch, stdout);
 		while ((ch = fgetc(fp)) != EOF) {
@@ -159,13 +166,7 @@ yesterday(void)
 				if (++printed > rows - 3) {
 					while (getchar() != '\n')
 						;
-					putp(clear_screen);
-					printf("Free Bee %s | https://freebee.fun/\n\n", VERSION);
-					printf("              %c\n", letters[1]);
-					printf("          %c       %c\n", letters[0], letters[2]);
-					printf("              %c\n", letters[6]);
-					printf("          %c       %c\n", letters[3], letters[5]);
-					printf("              %c\n\n", letters[4]);
+					print_header();
 					printed = 8;
 				}
 			}
