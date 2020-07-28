@@ -15,7 +15,7 @@
  */
 
 #ifndef DICTIONARY
-#define DICTIONARY "/usr/local/share/freebee/words.txt"
+#define DICTIONARY "/usr/local/share/freebee/enable1.txt"
 #endif
 
 #ifndef CERT
