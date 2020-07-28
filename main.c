@@ -27,7 +27,7 @@
 FILE *daily_save;
 
 char *term;
-char foundlist[2000][17], wordlist[2000][17];
+char foundlist[2000][18], wordlist[2000][18];
 char homedir[PATH_MAX];
 char letters[8];
 

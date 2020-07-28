@@ -15,7 +15,7 @@
  */
 
 #ifndef DICTIONARY
-#define DICTIONARY "/usr/local/share/freebee/sowpods.txt"
+#define DICTIONARY "/usr/local/share/freebee/words.txt"
 #endif
 
 #ifndef CERT
@@ -26,10 +26,10 @@ extern FILE *daily_save;
 
 extern char *term;
 
-extern char foundlist[2000][17];
+extern char foundlist[2000][18];
 extern char homedir[PATH_MAX];
 extern char letters[8];
-extern char wordlist[2000][17];
+extern char wordlist[2000][18];
 
 extern int cols;
 extern int daily;

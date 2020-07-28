@@ -12,8 +12,8 @@ CFLAGS +=	-DHAVE_PLEDGE -DHAVE_UNVEIL
 
 # Uncomment if you don't want to install
 # or if you plan to install the dictionary somewhere
-# other than /usr/local/share/freebee/sowpods.txt
-#CFLAGS +=	-DDICTIONARY="\"sowpods.txt\""
+# other than /usr/local/share/freebee/words.txt
+#CFLAGS +=	-DDICTIONARY="\"words.txt\""
 
 PREFIX ?=	/usr/local
 BINDIR ?=	${PREFIX}/bin
@@ -33,7 +33,9 @@ install:
 	/usr/bin/install -d -m 755 ${SHAREDIR}
 	/usr/bin/install -c -s -m 555 freebee ${BINDIR}
 	/usr/bin/install -c -m 444 freebee.6 ${MANDIR}
-	/usr/bin/install -c -m 444 sowpods.txt ${SHAREDIR}
+	/usr/bin/install -c -m 444 words.txt ${SHAREDIR}
+	/usr/bin/install -c -m 444 LICENSE Copyright-for-words.txt \
+		${SHAREDIR}
 
 clean:
 	rm -f ${PROG} ${OBJS} ${PROG}.core

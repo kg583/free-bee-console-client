@@ -20,7 +20,7 @@ nearly infinite number of computer-generated random challenges. Unlike the
 original game, you are not restricted to only a single game per day!
 
 The only notable difference between Free Bee and the original game is the use
- of the SOWPODS dictionary instead of the NYT dictionary. Patches welcome.
+ of the SCOWL dictionary instead of the NYT dictionary. Patches welcome.
 
 Find us on the web at https://freebee.fun/
 
@@ -41,4 +41,7 @@ portable versions included in this repository.
 
 License
 -------
-ISC License. See LICENSE for details.
+ISC License. See `LICENSE` for details.
+
+The SCOWL dictionary carries an MIT-like license. See
+`Copyright-for-words.txt` for details.
