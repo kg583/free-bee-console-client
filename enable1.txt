@@ -1051,6 +1051,7 @@ acetify
 acetifying
 acetin
 acetins
+acetoacetate
 acetone
 acetones
 acetonic
@@ -2491,6 +2492,8 @@ afreets
 afresh
 afrit
 afrits
+afro
+afros
 after
 afterbirth
 afterbirths
@@ -15234,6 +15237,8 @@ bleaters
 bleating
 bleats
 bleb
+blebbed
+blebbing
 blebby
 blebs
 bled
@@ -24547,6 +24552,7 @@ choicenesses
 choicer
 choices
 choicest
+choil
 choir
 choirboy
 choirboys
@@ -29834,6 +29840,8 @@ conkers
 conking
 conks
 conky
+conman
+conmen
 conn
 connate
 connately
@@ -30644,6 +30652,7 @@ conundrum
 conundrums
 conurbation
 conurbations
+conure
 conus
 convalesce
 convalesced
@@ -64748,6 +64757,7 @@ halakic
 halakist
 halakists
 halakoth
+halal
 halala
 halalah
 halalahs
@@ -78920,6 +78930,7 @@ kefirs
 kefs
 kegeler
 kegelers
+kegging
 kegler
 keglers
 kegling
@@ -88119,9 +88130,11 @@ membraned
 membranes
 membranous
 membranously
+meme
 memento
 mementoes
 mementos
+memes
 memo
 memoir
 memoirist
@@ -113806,6 +113819,8 @@ pralltriller
 pralltrillers
 pram
 prams
+prana
+pranas
 prance
 pranced
 prancer
@@ -118214,6 +118229,8 @@ puppyhoods
 puppyish
 puppylike
 pups
+pupusa
+pupusas
 purana
 puranas
 puranic
@@ -131633,6 +131650,8 @@ schlockmeister
 schlockmeisters
 schlocks
 schlocky
+schlub
+schlubs
 schlump
 schlumped
 schlumping
@@ -140046,6 +140065,7 @@ spalling
 spalls
 spalpeen
 spalpeens
+spam
 span
 spanakopita
 spanakopitas
@@ -150837,6 +150857,7 @@ text
 textbook
 textbookish
 textbooks
+texted
 textile
 textiles
 textless
@@ -156969,6 +156990,7 @@ tzitzis
 tzitzit
 tzitzith
 tzuris
+uber
 ubieties
 ubiety
 ubique
@@ -163825,6 +163847,7 @@ virologies
 virologist
 virologists
 virology
+virome
 viroses
 virosis
 virtu
