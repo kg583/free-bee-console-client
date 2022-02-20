@@ -35,12 +35,10 @@ Compiling
 Just run `make`. Development of Free Bee is done on OpenBSD and I'm using
 some OpenBSD extensions. Please edit the
 `CFLAGS += -DHAVE_ARC4RANDOM_UNIFORM -DHAVE_STRLCAT` and the
-`CFLAGS += -DHAVE_PLEDGE -DHAVE_UNVEIL` lines in the `Makefile`
+`CFLAGS += -DHAVE_HAVE_STRTONUM -DHAVE_PLEDGE` lines in the `Makefile`
 to reflect whether or not your system has those extensions or needs the
 portable versions included in this repository.
 
 License
 -------
 ISC License. See `LICENSE` for details.
-
-The ENABLE dictionary is Public Domain.

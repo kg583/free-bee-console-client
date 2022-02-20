@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Brian Callahan <bcallah@openbsd.org>
+ * Copyright (c) 2020-2022 Brian Callahan <bcallah@openbsd.org>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -14,13 +14,18 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+#include <sys/stat.h>
+
 #include <curl/curl.h>
 
 #include <ctype.h>
+#include <errno.h>
 #include <limits.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <term.h>
+#include <time.h>
 #include <unistd.h>
 
 #include "freebee.h"
@@ -55,7 +60,6 @@ today(void)
 		/* use a GET to fetch this */
 		curl_easy_setopt(curl, CURLOPT_HTTPGET, 1L);
 
-		(void) unlink(buf);
 		(void) snprintf(buf, sizeof(buf), "%s/today.txt", homedir);
 		if ((fp = fopen(buf, "w+")) == NULL)
 			return;
@@ -76,7 +80,6 @@ today(void)
 		}
 
 		(void) fclose(fp);
-
 		(void) unlink(buf);
 	}
 }
@@ -182,5 +185,106 @@ out:
 			;
 
 		putp(clear_screen);
+	}
+}
+
+static int
+dictionary_update(time_t t)
+{
+	CURL *curl;
+	CURLcode ret;
+	FILE *fp;
+	const char *e;
+	char buf[PATH_MAX], dtime[32];
+	int ch, i = 0;
+	time_t u;
+
+	curl = curl_easy_init();
+	if (curl) {
+		curl_easy_setopt(curl, CURLOPT_URL, "https://freebee.fun/dupdate.txt");
+
+		/* use a GET to fetch this */
+		curl_easy_setopt(curl, CURLOPT_HTTPGET, 1L);
+
+		(void) snprintf(buf, sizeof(buf), "%s/dupdate.txt", homedir);
+		if ((fp = fopen(buf, "w+")) == NULL)
+			return 0;
+
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
+
+		/* Perform the request */
+		ret = curl_easy_perform(curl);
+
+		curl_easy_cleanup(curl);
+
+		if (ret != 0)
+			return 0;
+
+		(void) memset(dtime, 0, sizeof(dtime));
+
+		(void) fseek(fp, 0L, SEEK_SET);
+		while ((ch = fgetc(fp)) != EOF) {
+			if (i > 16 || !isdigit((unsigned char) ch))
+				break;
+
+			dtime[i++] = ch;
+		}
+		(void) fclose(fp);
+		(void) unlink(buf);
+
+		u = strtonum(dtime, 0, LLONG_MAX, &e);
+		if (e != NULL)
+			return 0;
+
+		if (t < u)
+			return 1;
+	}
+
+	return 0;
+}
+
+void
+dictionary(void)
+{
+	CURL *curl;
+	CURLcode ret;
+	FILE *fp;
+	struct stat sb;
+	char buf1[PATH_MAX], buf2[PATH_MAX];
+	time_t t;
+
+	(void) snprintf(buf1, sizeof(buf1), "%s/enable1.txt", homedir);
+	if (stat(buf1, &sb) == 0) {
+		t = sb.st_mtim.tv_sec;
+		if (!dictionary_update(t))
+			return;
+	}
+
+	(void) printf("Updating dictionary, please wait...\n");
+
+	curl = curl_easy_init();
+	if (curl) {
+		curl_easy_setopt(curl, CURLOPT_URL, "https://freebee.fun/enable1.txt");
+
+		/* use a GET to fetch this */
+		curl_easy_setopt(curl, CURLOPT_HTTPGET, 1L);
+
+		(void) snprintf(buf2, sizeof(buf2), "%s/enable2.txt", homedir);
+		if ((fp = fopen(buf2, "w+")) == NULL)
+			return;
+
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
+
+		/* Perform the request */
+		ret = curl_easy_perform(curl);
+
+		curl_easy_cleanup(curl);
+
+		(void) fclose(fp);
+
+		if (ret == 0)
+			(void) rename(buf2, buf1);
+
+		(void) unlink(buf2);
 	}
 }

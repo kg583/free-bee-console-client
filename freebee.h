@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Brian Callahan <bcallah@openbsd.org>
+ * Copyright (c) 2020-2022 Brian Callahan <bcallah@openbsd.org>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -13,10 +13,6 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
-
-#ifndef DICTIONARY
-#define DICTIONARY "/usr/local/share/freebee/enable1.txt"
-#endif
 
 #ifndef CERT
 #define CERT "/etc/ssl/cert.pem"
@@ -35,7 +31,6 @@ extern int cols;
 extern int daily;
 extern int restart;
 extern int rows;
-extern int unveiled;
 
 extern size_t found;
 extern size_t points;
@@ -57,6 +52,7 @@ extern const char *rank(void);
 
 extern void create_anagrams(void);
 extern void create_dir(void);
+extern void dictionary(void);
 extern void play_game(void);
 extern void set_rank(void);
 extern void today(void);
@@ -71,3 +67,7 @@ extern uint32_t arc4random_uniform(uint32_t);
 #ifndef HAVE_STRLCAT
 extern size_t strlcat(char *, const char *, size_t);
 #endif /* !HAVE_STRLCAT */
+
+#ifndef HAVE_STRTONUM
+extern long long strtonum(const char *, long long, long long, const char **);
+#endif /* !HAVE_STRTONUM */

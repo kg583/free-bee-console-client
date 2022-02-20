@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Brian Callahan <bcallah@openbsd.org>
+ * Copyright (c) 2020-2022 Brian Callahan <bcallah@openbsd.org>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -29,20 +29,19 @@ void
 create_dir(void)
 {
 	mode_t mode;
+	char *home;
 
 	mode = 0777 & ~umask(0);
-	if (getenv("HOME") == NULL)
+	if ((home = getenv("HOME")) == NULL)
 		snprintf(homedir, sizeof(homedir), "./");
 	else
-		snprintf(homedir, sizeof(homedir), "%s/.freebee", getenv("HOME"));
+		snprintf(homedir, sizeof(homedir), "%s/.freebee", home);
 
-#ifdef HAVE_UNVEIL
+#if 0
 	if (!unveiled) {
 		if (unveil(homedir, "rwc") == -1)
 			err(1, "unveil");
 		if (unveil(CERT, "r") == -1)
-			err(1, "unveil");
-		if (unveil(DICTIONARY, "rx") == -1)
 			err(1, "unveil");
 		if (unveil(NULL, NULL) != 0)
 			err(1, "unveil");

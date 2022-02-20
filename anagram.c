@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Brian Callahan <bcallah@openbsd.org>
+ * Copyright (c) 2020-2022 Brian Callahan <bcallah@openbsd.org>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -65,13 +65,15 @@ void
 create_anagrams(void)
 {
 	FILE *fp;
+	char buf[PATH_MAX];
 	char *word = NULL;
 	int notfirst = 0, pangram;
 	int one, two, three, four, five, six;
 	size_t i, j, wordsize = 0;
 	ssize_t wordlen, special, yes;
 
-	if ((fp = fopen(DICTIONARY, "r")) == NULL)
+	(void) snprintf(buf, sizeof(buf), "%s/enable1.txt", homedir);
+	if ((fp = fopen(buf, "r")) == NULL)
 		err(1, "fopen");
 
 	/*

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Brian Callahan <bcallah@openbsd.org>
+ * Copyright (c) 2020-2022 Brian Callahan <bcallah@openbsd.org>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -34,7 +34,6 @@ char letters[8];
 int cols, rows;
 int daily;
 int restart;
-int unveiled;
 
 size_t found, points, total, words;
 size_t newbie, novice, fine, skilled, excellent, superb, marvellous, outstanding, queen;
@@ -53,6 +52,8 @@ play_daily(void)
 		;
 	if (ch == 'd' || ch == 'D')
 		return 1;
+	if (ch == 'q' || ch == 'Q')
+		return 2;
 
 	return 0;
 }
@@ -61,9 +62,11 @@ static void
 setup_game(void)
 {
 
-	daily = play_daily();
+	if ((daily = play_daily()) == 2) {
+		restart = 0;
+		return;
+	}
 
-	create_dir();
 	create_anagrams();
 	set_rank();
 	play_game();
@@ -83,7 +86,7 @@ main(int argc, char *argv[])
 		errx(1, "setupterm");
 
 #ifdef HAVE_PLEDGE
-	if (pledge("stdio rpath wpath cpath inet dns unveil", NULL) == -1)
+	if (pledge("stdio rpath wpath cpath inet dns", NULL) == -1)
 		err(1, "pledge");
 #endif /* HAVE_PLEDGE */
 
@@ -93,6 +96,9 @@ main(int argc, char *argv[])
 		rows = 24;
 	if (cols < 25 || rows < 20)
 		errx(1, "terminal too small!");
+
+	create_dir();
+	dictionary();
 
 	restart = 1;
 	while (restart == 1)
